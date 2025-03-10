@@ -9,6 +9,17 @@
   --green-600: #16a34a;
 }
 
+@font-face {
+  font-family: 'Inter Variable';
+  src: 
+    url('/fonts/Inter-Variable.woff2') format('woff2'),
+    url('/fonts/Inter-Variable.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap; /* Lädt Systemschrift bis Webfont ready */
+}
+
+
 body {
   background-color: var(--white);
   color: var(--black);
