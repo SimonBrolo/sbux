@@ -1134,7 +1134,7 @@ figcaption {
 
 .section-nav {
   z-index: 9999;
-  background-color: var(--mint);
+  background-color: #0000;
   align-items: center;
   height: 6rem;
   margin-left: auto;
