@@ -1,0 +1,316 @@
+/* ============================================================
+   Contor Design System — GC Gruppe
+   Core color + typography tokens
+   ============================================================
+   Source: "Contor Design System - Token Studio Version.fig"
+   Brands: GC, EFG, BIMS, GUT, HYDROSOLAR (the GC Gruppe Business Units)
+   Spacing scale: 4px base
+   Radii: Tailwind defaults
+   ============================================================ */
+
+/* Font loading: GC Klavika (proprietary, GC Gruppe corporate) is loaded
+   directly from /fonts/. Saira / Inter / Fira Code remain as fallbacks. */
+
+@font-face {
+  font-family: "GC Klavika";
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+  src: url("./fonts/GC_Klavika-300.otf") format("opentype");
+}
+@font-face {
+  font-family: "GC Klavika";
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  src: url("./fonts/GC_Klavika-400.otf") format("opentype");
+}
+@font-face {
+  font-family: "GC Klavika";
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+  src: url("./fonts/GC_Klavika-500.otf") format("opentype");
+}
+@font-face {
+  font-family: "GC Klavika";
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+  src: url("./fonts/GC_Klavika-700.otf") format("opentype");
+}
+
+/* GC Klavika Head — the heavy condensed display variant referenced in the
+   Figma type tokens — was NOT supplied. We map the "GC Klavika Head" family
+   onto Klavika 700 so anything still referencing it picks up the Bold cut. */
+@font-face {
+  font-family: "GC Klavika Head";
+  font-weight: 400 900;
+  font-style: normal;
+  font-display: swap;
+  src: url("./fonts/GC_Klavika-700.otf") format("opentype");
+}
+
+:root {
+  /* ---------------------------------------------------------------
+     BRAND PRIMITIVES — the GC corporate palette
+     --------------------------------------------------------------- */
+  /* GC RED (primary brand) — 50..950 */
+  --gc-red-50:  #fbe6ea;
+  --gc-red-100: #f1b0be;
+  --gc-red-200: #eb8a9e;
+  --gc-red-300: #e25572;
+  --gc-red-400: #dc3457;
+  --gc-red-500: #d3012d;   /* base brand red (rgb 211,1,45) */
+  --gc-red-600: #c00129;
+  --gc-red-700: #960120;   /* often used on press states */
+  --gc-red-800: #740119;
+  --gc-red-900: #590013;
+  --gc-red-950: #3d000d;
+
+  /* GC YELLOW (secondary brand) */
+  --gc-yellow-50:  #fff7d8;
+  --gc-yellow-100: #ffeba5;
+  --gc-yellow-300: #ffd147;
+  --gc-yellow-400: #fbb900;
+  --gc-yellow-500: #f0b223;   /* main yellow (rgb 240,178,35) */
+  --gc-yellow-600: #c2750e;
+  --gc-yellow-700: #8a5208;
+
+  /* GC NEUTRAL (warm cool-grey) */
+  --gc-neutral-50:  #fefeff;
+  --gc-neutral-100: #fafbfb;
+  --gc-neutral-200: #f6f7f7;
+  --gc-neutral-300: #ebecec;
+  --gc-neutral-400: #d6d8d9;
+  --gc-neutral-500: #adb2b3;
+  --gc-neutral-600: #7c7c81;
+  --gc-neutral-700: #626369;
+  --gc-neutral-800: #3b3c43;
+  --gc-neutral-900: #202125;
+  --gc-neutral-950: #19191c;
+
+  /* SEMANTIC — error / success / warning / info  (from Figma swatches) */
+  --gc-error-50:   #fbede8;
+  --gc-error-500:  #d5471d;
+  --gc-error-700:  #973215;
+
+  --gc-success-50:  #edf6e9;
+  --gc-success-500: #4ea124;
+  --gc-success-700: #2b5914;
+
+  --gc-warning-50:  #fff5d8;
+  --gc-warning-500: #fbb900;
+  --gc-warning-700: #8a5208;
+
+  --gc-info-50:   #eaeef7;
+  --gc-info-500:  #5879bb;
+  --gc-info-700:  #213e79;
+
+  /* BU accent colors — Business Unit signature colors */
+  --bu-gc-red:        #b90e2e;   /* GC */
+  --bu-gc-yellow:     #f0b223;
+  --bu-efg-yellow:    #fbb900;   /* EFG (yellow primary) */
+  --bu-bims-blue:     #0d3e7a;   /* BIMS */
+  --bu-gut-red:       #d3012d;   /* G.U.T. (red roof mark) */
+  --bu-hydro-blue:    #0fa3e4;   /* Hydrosolar */
+
+  /* ---------------------------------------------------------------
+     SEMANTIC TOKENS — what application code should actually use
+     --------------------------------------------------------------- */
+  /* Surface */
+  --bg:            #ffffff;
+  --bg-subtle:     var(--gc-neutral-200);   /* page background */
+  --bg-muted:      var(--gc-neutral-300);
+  --bg-elevated:   #ffffff;
+  --bg-inverse:    var(--gc-neutral-900);
+
+  /* Foreground (text) */
+  --fg-1:          var(--gc-neutral-900);   /* primary text */
+  --fg-2:          var(--gc-neutral-800);   /* secondary */
+  --fg-3:          var(--gc-neutral-700);   /* tertiary / labels */
+  --fg-muted:      var(--gc-neutral-600);   /* hint / placeholder */
+  --fg-disabled:   var(--gc-neutral-500);
+  --fg-inverse:    #ffffff;
+  --fg-on-brand:   #ffffff;
+
+  /* Border */
+  --border:        var(--gc-neutral-400);
+  --border-subtle: var(--gc-neutral-300);
+  --border-strong: var(--gc-neutral-700);
+  --border-focus:  var(--gc-red-500);
+
+  /* Brand / accent (primary action) */
+  --brand:           var(--gc-red-500);
+  --brand-hover:     var(--gc-red-600);
+  --brand-pressed:   var(--gc-red-700);
+  --brand-subtle:    var(--gc-red-50);
+  --brand-on:        #ffffff;
+
+  /* Accent (yellow accent stripe / highlights) */
+  --accent:         var(--gc-yellow-500);
+  --accent-strong:  var(--gc-yellow-600);
+
+  /* Status */
+  --status-error:    var(--gc-error-500);
+  --status-error-bg: var(--gc-error-50);
+  --status-success:  var(--gc-success-500);
+  --status-success-bg: var(--gc-success-50);
+  --status-warning:  var(--gc-warning-500);
+  --status-info:     var(--gc-info-500);
+
+  /* ---------------------------------------------------------------
+     TYPOGRAPHY
+     --------------------------------------------------------------- */
+  /* Klavika is the only typeface used in the Contor system, loaded from /fonts/
+     in weights 300 / 400 / 500 / 700. Klavika Head (heavy condensed display cut)
+     was not supplied — its family alias falls back onto Klavika 700.
+     Saira / system stacks remain only as a last-resort safety net. */
+  --font-display: "GC Klavika Head", "GC Klavika", "Saira Condensed", system-ui, sans-serif;
+  --font-body:    "GC Klavika", "Saira Semi Condensed", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-ui:      "GC Klavika", "Saira Semi Condensed", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono:    "GC Klavika", ui-monospace, monospace;   /* no real mono in the brand; Klavika 500 stands in */
+
+  /* Type scale — major second (1.125) on a 4-px grid. From Figma /1.4.-Typography */
+  --text-display-lg: 40px;   /* hero */
+  --text-display-md: 36px;
+  --text-display-sm: 32px;
+  --text-heading-lg: 28px;
+  --text-heading-md: 24px;
+  --text-heading-sm: 20px;
+  --text-body-lg:    18px;
+  --text-body-md:    16px;   /* default */
+  --text-body-sm:    14px;
+  --text-label-md:   14px;
+  --text-label-sm:   12px;
+  --text-label-xs:   10px;
+
+  /* Line heights (em) */
+  --lh-tight:   1.00;
+  --lh-snug:    1.15;
+  --lh-normal:  1.25;
+  --lh-relaxed: 1.45;
+
+  /* Letter spacing — display sizes tighten progressively */
+  --tracking-display-lg: -0.04em;
+  --tracking-display:    -0.03em;
+  --tracking-heading:    -0.0125em;
+  --tracking-body:        0;
+  --tracking-label:       0.02em;
+  --tracking-overline:    0.08em;   /* small caps labels */
+
+  --weight-regular: 400;
+  --weight-medium:  500;
+  --weight-bold:    700;
+
+  /* ---------------------------------------------------------------
+     SPACING SCALE — 4-px grid
+     --------------------------------------------------------------- */
+  --space-0:  0;
+  --space-3xs: 2px;
+  --space-2xs: 4px;
+  --space-xs:  6px;
+  --space-s:   8px;
+  --space-m:   10px;
+  --space-ml:  12px;
+  --space-l:   16px;
+  --space-xl:  20px;
+  --space-2xl: 24px;
+  --space-3xl: 32px;
+  --space-4xl: 40px;
+  --space-5xl: 48px;
+  --space-6xl: 72px;
+  --space-7xl: 80px;
+
+  /* ---------------------------------------------------------------
+     RADII — Tailwind defaults (per Figma docs)
+     --------------------------------------------------------------- */
+  --radius-sm:   2px;
+  --radius:      4px;
+  --radius-md:   6px;
+  --radius-lg:   8px;
+  --radius-xl:   12px;
+  --radius-2xl:  16px;
+  --radius-full: 9999px;
+
+  /* ---------------------------------------------------------------
+     ELEVATION / SHADOWS
+     Soft, mostly used on cards and overlays.
+     --------------------------------------------------------------- */
+  --shadow-xs:  0 1px 2px rgba(0,0,0,0.05);
+  --shadow-sm:  0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-md:  0 4px 8px rgba(0,0,0,0.06), 0 2px 4px rgba(0,0,0,0.04);
+  --shadow-lg:  0 10px 24px rgba(0,0,0,0.08), 0 4px 8px rgba(0,0,0,0.04);
+  --shadow-xl:  0 20px 48px rgba(0,0,0,0.12), 0 8px 16px rgba(0,0,0,0.06);
+  --shadow-card: 0 4px 20px 12px rgba(0,0,0,0.06);  /* the soft halo used on hero cards */
+  --shadow-focus: 0 0 0 3px rgba(211,1,45,0.25);
+
+  /* ---------------------------------------------------------------
+     MOTION
+     --------------------------------------------------------------- */
+  --duration-fast:    120ms;
+  --duration-base:    200ms;
+  --duration-slow:    320ms;
+  --ease-standard:    cubic-bezier(0.2, 0, 0, 1);
+  --ease-emphasized:  cubic-bezier(0.3, 0, 0, 1);
+  --ease-decelerate:  cubic-bezier(0, 0, 0, 1);
+
+  /* ---------------------------------------------------------------
+     LAYOUT — breakpoints + grid (from /1.2.-Breakpoints-Grid)
+     --------------------------------------------------------------- */
+  --bp-sm: 640px;
+  --bp-md: 768px;
+  --bp-lg: 1024px;
+  --bp-xl: 1280px;
+  --container-max: 1440px;
+
+  /* Focus ring (red, AA) */
+  --focus-ring: var(--brand);
+  --focus-ring-offset: 2px;
+}
+
+/* ============================================================
+   BASE ELEMENT STYLES — semantic / "h1, p, code" wrappers
+   ============================================================ */
+
+html { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+
+body {
+  font-family: var(--font-body);
+  font-size: var(--text-body-md);
+  line-height: var(--lh-normal);
+  color: var(--fg-1);
+  background: var(--bg);
+}
+
+h1, h2, h3, h4, h5 { font-family: var(--font-display); font-weight: var(--weight-bold); margin: 0; color: var(--fg-1); text-wrap: balance; }
+h1 { font-size: var(--text-display-md); line-height: var(--lh-tight); letter-spacing: var(--tracking-display-lg); }
+h2 { font-size: var(--text-heading-lg); line-height: var(--lh-tight); letter-spacing: var(--tracking-display); }
+h3 { font-size: var(--text-heading-md); line-height: var(--lh-snug); letter-spacing: var(--tracking-heading); }
+h4 { font-size: var(--text-heading-sm); line-height: var(--lh-snug); letter-spacing: var(--tracking-heading); }
+h5 { font-size: var(--text-body-lg);    line-height: var(--lh-snug); font-weight: var(--weight-medium); letter-spacing: var(--tracking-heading); }
+
+p { margin: 0; line-height: var(--lh-relaxed); color: var(--fg-2); text-wrap: pretty; }
+small, .label { font-size: var(--text-label-sm); letter-spacing: var(--tracking-label); color: var(--fg-3); }
+
+.overline {
+  font-size: var(--text-label-xs);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-overline);
+  font-weight: var(--weight-medium);
+  color: var(--fg-3);
+}
+
+a {
+  color: var(--brand);
+  text-decoration: none;
+  font-weight: var(--weight-medium);
+}
+a:hover { color: var(--brand-hover); text-decoration: underline; text-underline-offset: 2px; }
+a:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: var(--focus-ring-offset); border-radius: 2px; }
+
+code, pre {
+  font-family: var(--font-mono);
+  font-size: 0.875em;
+}
+code { background: var(--gc-neutral-200); padding: 1px 6px; border-radius: var(--radius-sm); }
