@@ -96,6 +96,14 @@
   }
 }
 </script>
+  <style>
+/* Wechselnde Zielgruppe in der Hero-Überschrift */
+.sbx-rot { display: inline-grid; overflow: hidden; vertical-align: bottom; padding-bottom: .1em; margin-bottom: -.1em; }
+.sbx-rot > span { grid-area: 1 / 1; white-space: nowrap; transition: transform .8s cubic-bezier(.19,1,.22,1), opacity .5s; }
+.sbx-rot > span.is-next { transform: translateY(105%); opacity: 0; }
+.sbx-rot > span.is-prev { transform: translateY(-105%); opacity: 0; }
+.sbx-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; }
+</style>
 </head>
 <body>
   <div style="-webkit-transform:translate3d(0, -8rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, -8rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, -8rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, -8rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)" class="page-wrapper">
@@ -599,6 +607,61 @@ Webflow.push(function() {
       target.focus();
     });
   });
+</script>
+  <script>
+/* Wechselnde Zielgruppe: rotiert nur Wörter, die mit "für" in eine Zeile passen */
+(function () {
+  var h1 = document.querySelector('.section-header h1');
+  if (!h1 || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var ALL = ['dein Team', 'dein Produkt', 'deinen Shop', 'deine Plattform'];
+  var lead = h1.lastChild;
+  if (!lead || lead.nodeType !== 3 || lead.textContent.indexOf(ALL[0]) === -1) return;
+  lead.textContent = lead.textContent.replace(ALL[0], '');
+  var sr = document.createElement('span');
+  sr.className = 'sbx-sr';
+  sr.textContent = ALL[0];
+  var rot = document.createElement('span');
+  rot.className = 'sbx-rot';
+  rot.setAttribute('aria-hidden', 'true');
+  h1.appendChild(sr);
+  h1.appendChild(rot);
+  var words = [], i = 0, timer = null;
+  function fitting() {
+    var probe = document.createElement('span');
+    probe.style.cssText = 'position:absolute;visibility:hidden;white-space:nowrap';
+    h1.appendChild(probe);
+    var avail = h1.clientWidth;
+    var ok = ALL.filter(function (w) {
+      probe.textContent = lead.textContent + w;
+      return probe.getBoundingClientRect().width <= avail;
+    });
+    h1.removeChild(probe);
+    return ok.length ? ok : [ALL[0]];
+  }
+  function step() {
+    var items = rot.children, cur = items[i], nxt = items[(i + 1) % items.length];
+    cur.className = 'is-prev';
+    nxt.style.transition = 'none';
+    nxt.className = 'is-next';
+    void nxt.offsetWidth;
+    nxt.style.transition = '';
+    nxt.className = '';
+    i = (i + 1) % items.length;
+  }
+  function build() {
+    var ok = fitting();
+    if (rot.children.length && ok.join('|') === words.join('|')) return;
+    words = ok;
+    i = 0;
+    rot.innerHTML = words.map(function (w, k) { return '<span class="' + (k ? 'is-next' : '') + '">' + w + '</span>'; }).join('');
+    clearInterval(timer);
+    timer = words.length > 1 ? setInterval(step, 2600) : null;
+  }
+  build();
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(build);
+  var t;
+  window.addEventListener('resize', function () { clearTimeout(t); t = setTimeout(build, 200); });
+})();
 </script>
 </body>
 </html>
