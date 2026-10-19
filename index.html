@@ -97,10 +97,10 @@
 }
 </script>
   <style>
-/* Wechselnde Zielgruppe in der Hero-Überschrift: neues Wort fällt von oben ein und schwingt elastisch aus */
+/* Wechselnde Zielgruppe in der Hero-Überschrift: neues Wort fällt von oben ein und schwingt sanft aus (1,6 s, ca. 15 % Überschwingen) */
 .sbx-rot { display: inline-grid; overflow: hidden; vertical-align: bottom; padding-bottom: .35em; margin-bottom: -.35em; }
-.sbx-rot > span { grid-area: 1 / 1; white-space: nowrap; transition: transform 1.2s cubic-bezier(.34,1.56,.64,1), opacity .3s ease; }
-@supports (transition-timing-function: linear(0, 1)) { .sbx-rot > span { transition-timing-function: linear(0, 0.2607 2.5%, 0.5696 5%, 0.8535 7.5%, 1.0687 10%, 1.1987 12.5%, 1.2482 15%, 1.2354 17.5%, 1.1835 20%, 1.1154 22.5%, 1.0489 25%, 0.9959 27.5%, 0.9615 30%, 0.9458 32.5%, 0.9454 35%, 0.9551 37.5%, 0.9699 40%, 0.9852 42.5%, 0.9981 45%, 1.007 47.5%, 1.0116 50%, 1.0125 52.5%, 1.0108 55%, 1.0077 57.5%, 1.0042 60%, 1.0011 62.5%, 0.9989 65%, 0.9976 67.5%, 0.9972 70%, 0.9974 72.5%, 0.9981 75%, 0.9988 77.5%, 0.9996 80%, 1.0001 82.5%, 1.0005 85%, 1.0006 87.5%, 1.0006 90%, 1.0005 92.5%, 1.0003 95%, 1.0001 97.5%, 1), ease; } }
+.sbx-rot > span { grid-area: 1 / 1; white-space: nowrap; transition: transform 1.3s cubic-bezier(.32,1.4,.6,1), opacity .3s ease; }
+@supports (transition-timing-function: linear(0, 1)) { .sbx-rot > span { transition-duration: 1.6s, .3s; transition-timing-function: linear(0, 0.2056 2%, 0.4222 4%, 0.6257 6%, 0.8006 8%, 0.9394 10%, 1.0402 12%, 1.1053 14%, 1.1397 16%, 1.15 18%, 1.1427 20%, 1.124 22%, 1.0994 24%, 1.0731 26%, 1.0481 28%, 1.0264 30%, 1.009 32%, 0.9963 34%, 0.9879 36%, 0.9833 38%, 0.9818 40%, 0.9825 42%, 0.9846 44%, 0.9876 46%, 0.9908 48%, 0.9938 50%, 0.9965 52%, 0.9987 54%, 1.0003 56%, 1.0014 58%, 1.002 60%, 1.0022 62%, 1.0021 64%, 1.0019 66%, 1.0016 68%, 1.0012 70%, 1.0008 72%, 1.0005 74%, 1.0002 76%, 1 78%, 0.9998 80%, 0.9998 82%, 0.9997 84%, 0.9997 86%, 0.9998 88%, 0.9998 90%, 0.9999 92%, 0.9999 94%, 0.9999 96%, 1 98%, 1), ease; } }
 .sbx-rot > span.is-next { transform: translateY(-105%); opacity: 0; }
 .sbx-rot > span.is-prev { transform: translateY(105%); opacity: 0; }
 .sbx-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; }
