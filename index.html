@@ -136,9 +136,8 @@
 @media (hover: hover) { #sbx-dock .sbx-seg[aria-pressed="false"]:hover .sbx-tip { opacity: 1; transform: translate(-50%, 0); transition-delay: .2s; } }
 #sbx-dock .sbx-seg[aria-pressed="false"]:focus-visible .sbx-tip { opacity: 1; transform: translate(-50%, 0); }
 #sbx-dock.is-static, #sbx-dock.is-static * { transition: none !important; }
-#sbx-dock .sbx-hint { position: absolute; left: 50%; bottom: calc(100% + 14px); display: flex; align-items: center; gap: 6px; margin: 0; padding: 7px 12px 7px 10px; border: 0; border-radius: 10px; background: #0a0a0a; color: #fff; font: 500 13px/18px InterVariable, Inter, Arial, sans-serif; letter-spacing: 0; text-transform: none; white-space: nowrap; cursor: pointer; box-shadow: 0 6px 20px rgba(0,0,0,.28); opacity: 0; transform: translate(-50%, 8px); pointer-events: none; transition: opacity .3s, transform .3s; }
+#sbx-dock .sbx-hint { position: absolute; left: 50%; bottom: calc(100% + 14px); display: block; margin: 0; padding: 7px 12px; border: 0; border-radius: 10px; background: #0a0a0a; color: #fff; font: 500 13px/18px InterVariable, Inter, Arial, sans-serif; letter-spacing: 0; text-transform: none; white-space: nowrap; cursor: pointer; box-shadow: 0 6px 20px rgba(0,0,0,.28); opacity: 0; transform: translate(-50%, 8px); pointer-events: none; transition: opacity .3s, transform .3s; }
 #sbx-dock .sbx-hint::after { content: ""; position: absolute; left: 50%; top: 100%; margin-left: -6px; border: 6px solid transparent; border-top-color: #0a0a0a; }
-#sbx-dock .sbx-hint svg { flex: none; }
 #sbx-dock .sbx-hint.is-on { opacity: 1; transform: translate(-50%, 0); pointer-events: auto; animation: sbx-bob 1.4s ease-in-out .4s 3; }
 #sbx-dock .sbx-hint.is-on.is-away, #sbx-dock .sbx-hint.is-done { opacity: 0; pointer-events: none; }
 #sbx-dock .sbx-hint:focus-visible { outline: 3px solid #9fd45a; outline-offset: 2px; }
@@ -985,12 +984,11 @@ Webflow.push(function() {
   dock.appendChild(pill);
   document.body.appendChild(dock);
 
-  // Hinweis auf den Umschalter: erscheint kurz nach dem Laden, wippt ein paar Mal und verschwindet, sobald ein Modus gewaehlt wird
+  // Hinweis auf das ganze Panel: erscheint kurz nach dem Laden, wippt ein paar Mal und verschwindet, sobald ein Modus gewaehlt wird
   var hint = document.createElement('button'), hintDone = false;
   hint.type = 'button';
   hint.className = 'sbx-hint';
-  hint.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
-    ICONS.heatmap + '</svg>Heatmap ansehen';
+  hint.textContent = 'UX-Analyse ausprobieren';
   hint.addEventListener('click', function () { setMode('heatmap'); });
   dock.appendChild(hint);
   function hintAway(away) { if (!hintDone) hint.className = 'sbx-hint is-on' + (away ? ' is-away' : ''); }
@@ -1026,9 +1024,6 @@ Webflow.push(function() {
     PAD = parseFloat(cs.paddingLeft) || 0;
     if (idle) SEG = idle.offsetWidth;
     place();
-    // Pfeil des Hinweises zeigt auf den Heatmap-Button
-    var hb = btns.filter(function (b) { return b.getAttribute('data-mode') === 'heatmap'; })[0];
-    if (hint.parentNode && hb) hint.style.left = (pill.offsetLeft + hb.offsetLeft + hb.offsetWidth / 2) + 'px';
     void dock.offsetWidth;
     requestAnimationFrame(function () { requestAnimationFrame(function () { dock.className = ''; }); });
   }
