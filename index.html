@@ -104,6 +104,35 @@
 .sbx-rot > span.is-prev { transform: translateY(-105%); opacity: 0; }
 .sbx-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; }
 </style>
+  <style>
+/* Heatmap-Ansicht mit Beispieldaten (kein Tracking) */
+#sbx-hm { position: absolute; left: 0; top: 0; width: 100%; height: 100%; overflow: hidden; pointer-events: none; }
+#sbx-hm > div { position: absolute; pointer-events: none; }
+#sbx-hm .sbx-dim { left: 0; top: 0; width: 100%; height: 100%; z-index: 20; }
+#sbx-hm .sbx-b { transform: translate(-50%, -50%); border-radius: 50%; z-index: 30; }
+#sbx-hm .sbx-k { z-index: 31; transform: translate(-25%, -75%); display: flex; align-items: center; gap: 6px; white-space: nowrap; padding: 3px 9px 3px 7px; border: 1px solid #0a0a0a; border-radius: 999px; background: #0a0a0a; color: #fff; font: 600 13px/18px Inter, Arial, sans-serif; letter-spacing: 0; box-shadow: 0 2px 10px rgba(0,0,0,.28); }
+#sbx-hm .sbx-k.is-dead { background: #fff; color: #0a0a0a; }
+#sbx-hm .sbx-k i { flex: none; width: 8px; height: 8px; border-radius: 50%; }
+#sbx-hm .sbx-band { left: 0; width: 100%; z-index: 20; mix-blend-mode: multiply; }
+#sbx-hm .sbx-line { left: 0; width: 100%; height: 0; z-index: 31; border-top: 2px dashed rgba(10,10,10,.75); }
+#sbx-hm .sbx-lab { z-index: 31; display: flex; align-items: center; gap: 6px; white-space: nowrap; padding: 5px 12px; border-radius: 999px; background: #0a0a0a; color: #fff; font: 500 14px/20px Inter, Arial, sans-serif; letter-spacing: 0; box-shadow: 0 2px 10px rgba(0,0,0,.25); }
+#sbx-hm .sbx-lab b { font-weight: 600; }
+#sbx-hm .sbx-lab.is-fold { background: #fff; color: #0a0a0a; border: 1px solid #0a0a0a; }
+#sbx-hm .sbx-tr { width: 88px; height: 88px; margin: -44px 0 0 -44px; border-radius: 50%; z-index: 33; background: radial-gradient(closest-side, rgba(239,68,68,.4), rgba(250,204,21,.3) 38%, rgba(34,197,94,.18) 62%, rgba(37,99,235,.08) 82%, rgba(37,99,235,0)); animation: sbx-fade 8s linear forwards; }
+@keyframes sbx-fade { to { opacity: .3; } }
+#sbx-dock { position: fixed; right: 24px; bottom: 24px; z-index: 10000; display: flex; flex-direction: column; align-items: flex-end; gap: 8px; font-family: Inter, Arial, sans-serif; }
+#sbx-dock .sbx-note { padding: 3px 10px; border-radius: 999px; background: rgba(10,10,10,.8); color: #fff; font-size: 12px; line-height: 16px; font-weight: 500; }
+#sbx-dock .sbx-pill { display: flex; align-items: center; gap: 2px; padding: 4px; border-radius: 999px; background: #0a0a0a; color: #fff; box-shadow: 0 8px 28px rgba(0,0,0,.3); }
+#sbx-dock .sbx-seg { min-width: 44px; height: 44px; box-sizing: border-box; display: inline-flex; align-items: center; justify-content: center; gap: 7px; margin: 0; padding: 0 13px; border: 0; border-radius: 999px; background: transparent; color: #fff; font: 500 14px/20px Inter, Arial, sans-serif; letter-spacing: 0; text-transform: none; white-space: nowrap; cursor: pointer; transition: background-color .2s, color .2s; }
+#sbx-dock .sbx-seg[aria-pressed="true"] { background: #f2fce2; color: #000; }
+#sbx-dock .sbx-seg[aria-pressed="false"]:hover { background: rgba(255,255,255,.14); }
+#sbx-dock .sbx-seg[aria-pressed="false"] .sbx-lbl { display: none; }
+#sbx-dock .sbx-seg:focus-visible { outline: 3px solid #9fd45a; outline-offset: 2px; }
+#sbx-dock .sbx-seg svg { flex: none; }
+@media (max-width: 640px) { #sbx-dock { right: 12px; bottom: 12px; } }
+@media (prefers-color-scheme: dark) { #sbx-hm .sbx-band { mix-blend-mode: normal; } }
+@media print { #sbx-hm, #sbx-dock { display: none; } }
+</style>
 </head>
 <body>
   <div style="-webkit-transform:translate3d(0, -8rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, -8rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, -8rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, -8rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)" class="page-wrapper">
@@ -661,6 +690,295 @@ Webflow.push(function() {
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(build);
   var t;
   window.addEventListener('resize', function () { clearTimeout(t); t = setTimeout(build, 200); });
+})();
+</script>
+  <script>
+/* Heatmap-Ansicht: Beispieldaten, kein Tracking. Umschalter unten rechts, Start auf "Aus". */
+(function () {
+  var W = document.querySelector('.page-wrapper');
+  if (!W || !document.querySelector('.section-header')) return;
+
+  var LABELS = { aus: 'Aus', heatmap: 'Heatmap', klicken: 'Klicken', scrollen: 'Scrollen', bewegen: 'Bewegen' };
+  var ICONS = {
+    aus: '<path d="M3 3l18 18"/><path d="M10.6 5.1A10.4 10.4 0 0 1 12 5c6.5 0 10 7 10 7a17.6 17.6 0 0 1-3.1 4.1"/><path d="M6.6 6.6A17.4 17.4 0 0 0 2 12s3.5 7 10 7a9.7 9.7 0 0 0 5.4-1.6"/><path d="M9.9 9.9a3 3 0 0 0 4.2 4.2"/>',
+    heatmap: '<path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.07-2.14-.22-4.05 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.15.43-2.29 1-3a2.5 2.5 0 0 0 2.5 2.5z"/>',
+    klicken: '<path d="M14 4.1L12 6"/><path d="M5.1 8L2.2 7.2"/><path d="M6 12l-1.9 2"/><path d="M7.2 2.2L8 5.1"/><path d="M9.04 9.69a.5.5 0 0 1 .65-.65l11 4.5a.5.5 0 0 1-.07.95l-4.35 1.04a1 1 0 0 0-.74.74l-1.04 4.35a.5.5 0 0 1-.95.07z"/>',
+    scrollen: '<rect x="5" y="2" width="14" height="20" rx="7"/><path d="M12 6v4"/>',
+    bewegen: '<circle cx="6" cy="19" r="3"/><path d="M9 19h8.5a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7H15"/><circle cx="18" cy="5" r="3"/>'
+  };
+
+  // Beispieldaten: [links %, oben %, Breite, Hoehe, Intensitaet], relativ zum jeweiligen Element
+  var HEAT = {
+    h1: [[23, 26, '53%', '75%', .95], [68, 26, '53%', '70%', .78], [22, 78, '52%', '70%', .6], [49, 78, '24%', '60%', .68]],
+    cpux: [[50, 50, '125%', '220%', .9]],
+    heroP: [[28, 14, '60%', '24%', .55], [62, 38, '68%', '24%', .4], [40, 62, '66%', '24%', .3], [26, 86, '50%', '22%', .22]],
+    heroCta: [[50, 50, '150%', '260%', .97]],
+    aboutTitle: [[30, 50, '60%', '170%', .55], [76, 50, '46%', '150%', .36]],
+    aboutIntro: [[36, 8, '78%', '15%', .5], [42, 26, '80%', '14%', .38], [40, 46, '80%', '14%', .28], [34, 66, '70%', '14%', .2], [30, 86, '60%', '13%', .14]],
+    bt1: [[50, 50, '125%', '230%', .8]], bt2: [[50, 50, '120%', '230%', .55]], bt3: [[50, 50, '120%', '230%', .4]],
+    bt4: [[50, 50, '125%', '230%', .5]], bt5: [[50, 50, '125%', '230%', .36]], bt6: [[50, 50, '135%', '240%', .74]],
+    bp1: [[48, 68, '92%', '52%', .32]], bp2: [[46, 68, '88%', '52%', .24]], bp3: [[44, 68, '84%', '52%', .17]],
+    bp4: [[46, 68, '88%', '52%', .22]], bp5: [[40, 68, '78%', '52%', .15]], bp6: [[44, 68, '84%', '52%', .36]],
+    c1: [[50, 50, '118%', '210%', .86]], c2: [[50, 50, '125%', '210%', .55]], c3: [[50, 50, '118%', '210%', .63]], c4: [[50, 50, '112%', '210%', .45]],
+    d1: [[36, 32, '72%', '50%', .38]], d2: [[36, 32, '72%', '50%', .27]], d3: [[38, 32, '74%', '50%', .31]], d4: [[34, 32, '68%', '50%', .22]],
+    s1: [[28, 52, '58%', '125%', .5], [78, 52, '42%', '115%', .3]], s2: [[48, 52, '94%', '120%', .34]], s3: [[42, 52, '84%', '120%', .3]],
+    s4: [[48, 52, '94%', '125%', .52]], s5: [[42, 52, '84%', '115%', .22]],
+    contactTitle: [[50, 50, '140%', '160%', .3]],
+    contactHead: [[28, 52, '54%', '135%', .6], [76, 52, '46%', '125%', .42]],
+    contactP: [[40, 24, '80%', '36%', .3], [34, 72, '64%', '34%', .18]],
+    contactCta: [[50, 50, '150%', '260%', .92]],
+    photo: [[58.5, 22, '15%', '30%', .76], [37, 57, '17%', '25%', .3], [54, 70, '13%', '18%', .24]],
+    footLogo: [[50, 50, '150%', '240%', .22]],
+    footText: [[34, 28, '70%', '60%', .2], [40, 72, '70%', '50%', .12]],
+    impressum: [[50, 50, '150%', '260%', .36]],
+    cookie: [[50, 50, '125%', '240%', .3]]
+  };
+  var MOVE = {
+    h1: [[13, 28, '29%', '60%', .55], [44, 25, '30%', '60%', .62], [76, 28, '32%', '60%', .48], [12, 78, '24%', '60%', .45], [41, 75, '29%', '60%', .38]],
+    cpux: [[50, 55, '110%', '190%', .6]],
+    heroP: [[14, 12, '28%', '22%', .45], [44, 12, '30%', '22%', .5], [78, 14, '28%', '22%', .34], [22, 38, '30%', '22%', .38], [58, 36, '34%', '22%', .3], [26, 62, '32%', '22%', .27], [62, 62, '30%', '22%', .2], [20, 87, '28%', '20%', .2]],
+    heroCta: [[50, 50, '175%', '300%', .7], [96, 42, '45%', '150%', .45]],
+    aboutTitle: [[24, 50, '44%', '140%', .4], [70, 50, '44%', '130%', .3]],
+    aboutIntro: [[20, 6, '40%', '10%', .4], [62, 10, '48%', '10%', .34], [28, 28, '48%', '10%', .3], [66, 40, '44%', '10%', .24], [24, 55, '44%', '10%', .22], [58, 70, '48%', '10%', .17], [30, 88, '44%', '10%', .14]],
+    bp1: [[20, 18, '40%', '36%', .45], [56, 55, '60%', '34%', .32], [28, 85, '40%', '30%', .22]],
+    bp2: [[22, 18, '42%', '36%', .4], [58, 55, '60%', '34%', .28], [26, 85, '38%', '30%', .2]],
+    bp3: [[20, 18, '40%', '36%', .3], [52, 55, '56%', '34%', .22]],
+    bp4: [[18, 18, '36%', '36%', .38], [54, 55, '60%', '34%', .26], [30, 85, '42%', '30%', .18]],
+    bp5: [[18, 18, '34%', '36%', .28], [50, 55, '56%', '34%', .18]],
+    bp6: [[18, 18, '34%', '36%', .45], [56, 55, '62%', '34%', .32], [30, 85, '40%', '30%', .2]],
+    c1: [[50, 50, '115%', '180%', .5]], c2: [[50, 50, '120%', '180%', .38]], c3: [[50, 50, '115%', '180%', .42]], c4: [[50, 50, '110%', '180%', .32]],
+    d1: [[24, 30, '44%', '46%', .4], [70, 70, '44%', '46%', .3]], d2: [[24, 30, '44%', '46%', .3], [70, 70, '44%', '46%', .22]],
+    d3: [[24, 30, '44%', '46%', .34], [70, 70, '44%', '46%', .26]], d4: [[24, 30, '44%', '46%', .26], [70, 70, '44%', '46%', .18]],
+    s1: [[20, 52, '36%', '100%', .38], [62, 52, '40%', '100%', .3]], s2: [[24, 52, '44%', '100%', .3], [70, 52, '40%', '100%', .22]],
+    s3: [[22, 52, '40%', '100%', .3], [66, 52, '44%', '100%', .22]], s4: [[24, 52, '44%', '100%', .36], [70, 52, '40%', '100%', .28]],
+    s5: [[22, 52, '40%', '100%', .22], [66, 52, '44%', '100%', .16]],
+    contactTitle: [[50, 50, '140%', '150%', .24]],
+    contactHead: [[18, 52, '34%', '110%', .45], [52, 52, '34%', '110%', .4], [84, 52, '28%', '100%', .3]],
+    contactP: [[24, 18, '44%', '30%', .3], [64, 50, '50%', '30%', .25], [30, 84, '44%', '30%', .2]],
+    contactCta: [[50, 50, '175%', '300%', .65], [96, 42, '45%', '150%', .4]],
+    photo: [[58, 22, '20%', '30%', .45], [40, 56, '24%', '30%', .32], [70, 62, '18%', '24%', .2]],
+    footLogo: [[50, 50, '150%', '200%', .2]],
+    footText: [[30, 28, '56%', '50%', .22], [60, 74, '56%', '50%', .16]],
+    impressum: [[50, 50, '140%', '230%', .3]],
+    cookie: [[50, 50, '130%', '230%', .25]]
+  };
+  // Klickanteil in Prozent, 1 = Klick auf ein Element ohne Link
+  var CLICK = {
+    heroCta: [28, 0], contactCta: [19, 0], cpux: [8, 1], c1: [7, 1], bt6: [5, 1], impressum: [4, 0], c3: [4, 1],
+    photo: [3, 1], c2: [3, 1], bt1: [3, 1], c4: [2, 1], cookie: [2, 1], footLogo: [2, 0]
+  };
+  // Anteil der Besucher, die einen Abschnitt erreichen
+  var REACH = [['.section-header', 100], ['.section-about', 72], ['.section-experience', 55], ['.section-skills', 43],
+    ['.section-get-in-touch', 34], ['.section-profile-image', 29], ['.section-footer', 27]];
+  var REACH_END = 24, OPACITY = .75, DIM = .5;
+
+  var STOPS = [[0, [37, 99, 235]], [.28, [6, 182, 212]], [.5, [34, 197, 94]], [.7, [250, 204, 21]], [.86, [249, 115, 22]], [1, [239, 68, 68]]];
+  function col(v) {
+    v = Math.max(0, Math.min(1, v));
+    for (var i = 1; i < STOPS.length; i++) {
+      if (v <= STOPS[i][0]) {
+        var a = STOPS[i - 1], b = STOPS[i], t = (v - a[0]) / (b[0] - a[0]);
+        return [0, 1, 2].map(function (j) { return Math.round(a[1][j] + (b[1][j] - a[1][j]) * t); });
+      }
+    }
+    return STOPS[STOPS.length - 1][1];
+  }
+  function rgba(c, a) { return 'rgba(' + c.join(',') + ',' + a.toFixed(3) + ')'; }
+  function grad(level) {
+    var parts = [];
+    for (var i = 0; i <= 6; i++) {
+      var p = i / 6, v = level * (1 - p);
+      var a = i === 6 ? 0 : OPACITY * (.15 + .8 * v) * Math.pow(1 - p, .5);
+      parts.push(rgba(col(v), a) + ' ' + Math.round(p * 100) + '%');
+    }
+    return 'radial-gradient(closest-side,' + parts.join(',') + ')';
+  }
+  function scrollCol(r) { return rgba(col((r - 20) / 80), .55); }
+
+  function q(s, r) { return (r || document).querySelector(s); }
+  function qa(s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); }
+  // Umschliesst den Text eines Blockelements, damit die Heatmap am Text sitzt und nicht an der ganzen Zeile
+  function tight(el) {
+    if (!el) return null;
+    var f = el.firstElementChild;
+    if (f && f.className === 'sbx-tx' && el.childNodes.length === 1) return f;
+    var s = document.createElement('span');
+    s.className = 'sbx-tx';
+    while (el.firstChild) s.appendChild(el.firstChild);
+    el.appendChild(s);
+    return s;
+  }
+  function anchors() {
+    var A = {
+      h1: q('.section-header h1'),
+      cpux: q('.section-header p .text-weight-medium'),
+      heroP: q('.section-header p'),
+      heroCta: q('.section-header .button'),
+      aboutTitle: tight(q('.section-about .section-title h2')),
+      contactTitle: tight(q('.section-get-in-touch .section-title h2')),
+      contactHead: tight(q('.section-get-in-touch .heading-xlarge')),
+      contactP: q('.section-get-in-touch .content-wrapper p'),
+      contactCta: q('.section-get-in-touch .button'),
+      photo: q('.section-profile-image .about-image'),
+      footLogo: q('.section-footer .logo'),
+      footText: q('.section-footer .text-size-medium'),
+      impressum: q('.section-footer .footer_row a'),
+      cookie: q('.section-footer .footer_row .text-size-small')
+    };
+    var about = qa('.section-about .layout-12-column > .content-wrapper');
+    A.aboutIntro = about[0] ? q('p', about[0]) : null;
+    if (about[1]) qa('p', about[1]).forEach(function (p, i) { A['bp' + (i + 1)] = p; A['bt' + (i + 1)] = q('.text-weight-medium', p); });
+    qa('.section-experience .list-item h3:not(.text-weight-regular)').forEach(function (h, i) { A['c' + (i + 1)] = tight(h); });
+    qa('.section-experience .list-item h3.text-weight-regular').forEach(function (h, i) { A['d' + (i + 1)] = h; });
+    qa('.section-skills .heading-xlarge').forEach(function (h, i) { A['s' + (i + 1)] = tight(h); });
+    return A;
+  }
+  // Position im Seitenlayout relativ zum Page-Wrapper, unabhaengig von laufenden Animationen
+  function box(el) {
+    var x = 0, y = 0, e = el;
+    while (e && e !== W) { x += e.offsetLeft; y += e.offsetTop; e = e.offsetParent; }
+    if (e === W) return { x: x, y: y, w: el.offsetWidth, h: el.offsetHeight };
+    var r = el.getBoundingClientRect(), b = W.getBoundingClientRect();
+    return { x: r.left - b.left, y: r.top - b.top, w: r.width, h: r.height };
+  }
+  function size(v, total) { return String(v).slice(-1) === '%' ? total * parseFloat(v) / 100 : parseFloat(v); }
+  function add(f, cls, css, html) {
+    var d = document.createElement('div');
+    d.className = cls;
+    d.style.cssText = css;
+    if (html) d.innerHTML = html;
+    f.appendChild(d);
+    return d;
+  }
+  function blob(f, B, s) {
+    add(f, 'sbx-b', 'left:' + (B.x + B.w * s[0] / 100).toFixed(1) + 'px;top:' + (B.y + B.h * s[1] / 100).toFixed(1) +
+      'px;width:' + size(s[2], B.w).toFixed(1) + 'px;height:' + size(s[3], B.h).toFixed(1) + 'px;background:' + grad(s[4]));
+  }
+
+  var mode = 'aus', hm = null, A = null, trail = [], tsPrev = null;
+  function render() {
+    if (hm) { hm.innerHTML = ''; trail = []; }
+    // Webflow setzt preserve-3d auf den Page-Wrapper, das schaltet mix-blend-mode ab; fuer die Scroll-Baender kurz flach rechnen
+    if (tsPrev === null) tsPrev = W.style.transformStyle || '';
+    W.style.transformStyle = mode === 'scrollen' ? 'flat' : tsPrev;
+    if (mode === 'aus') return;
+    if (!hm) {
+      hm = document.createElement('div');
+      hm.id = 'sbx-hm';
+      hm.setAttribute('aria-hidden', 'true');
+      W.appendChild(hm);
+    }
+    if (!A) A = anchors();
+    var f = document.createDocumentFragment(), k, B;
+    if (mode === 'scrollen') {
+      var c0 = q('.section-header .container-large'), pad = c0 ? box(c0).x : 80;
+      var secs = REACH.map(function (r) { return [q(r[0]), r[1]]; }).filter(function (s) { return s[0] && s[0].offsetHeight > 0; });
+      secs.forEach(function (s, i) {
+        var S = box(s[0]), next = secs[i + 1] ? secs[i + 1][1] : REACH_END;
+        var lab = '<b>' + s[1] + ' %</b> erreichen diesen Abschnitt';
+        add(f, 'sbx-band', 'top:' + S.y + 'px;height:' + S.h + 'px;background:linear-gradient(180deg,' + scrollCol(s[1]) + ',' + scrollCol(next) + ')');
+        if (i === 0) {
+          add(f, 'sbx-lab', 'top:' + (S.y + 104) + 'px;right:' + pad + 'px', lab);
+          add(f, 'sbx-line', 'top:' + (S.y + 800) + 'px');
+          add(f, 'sbx-lab is-fold', 'top:' + (S.y + 800) + 'px;left:' + pad + 'px;transform:translateY(-50%)', 'Ø Fold');
+        } else {
+          add(f, 'sbx-line', 'top:' + S.y + 'px');
+          add(f, 'sbx-lab', 'top:' + S.y + 'px;left:' + pad + 'px;transform:translateY(-50%)', lab);
+        }
+      });
+    } else {
+      add(f, 'sbx-dim', 'background:rgba(10,10,10,' + DIM + ')');
+      if (mode === 'klicken') {
+        for (k in CLICK) {
+          if (!A[k]) continue;
+          B = box(A[k]);
+          var pct = CLICK[k][0], dead = CLICK[k][1], lv = Math.min(1, .38 + pct / 26);
+          var s1 = Math.round(34 + pct * 2.4), s2 = Math.round(s1 * .75);
+          var spots = k === 'photo' ? [[58.5, 21, '8%', '14%', lv], [40, 58, '6%', '10%', lv * .85]]
+            : [[50, 50, '125%', '210%', lv * .5], [44, 56, s1 + 'px', s1 + 'px', lv], [58, 44, s2 + 'px', s2 + 'px', lv * .92]];
+          for (var n = 0; n < spots.length; n++) blob(f, B, spots[n]);
+          var bx = k === 'photo' ? B.x + B.w * .61 : B.x + B.w, by = k === 'photo' ? B.y + B.h * .13 : B.y;
+          add(f, 'sbx-k' + (dead ? ' is-dead' : ''), 'left:' + bx.toFixed(1) + 'px;top:' + by.toFixed(1) + 'px',
+            '<i style="background:' + rgba(col(lv), 1) + '"></i>' + pct + ' %' + (dead ? ' · kein Link' : ''));
+        }
+      } else {
+        var src = mode === 'heatmap' ? HEAT : MOVE;
+        for (k in src) {
+          if (!A[k]) continue;
+          B = box(A[k]);
+          for (var m = 0; m < src[k].length; m++) blob(f, B, src[k][m]);
+        }
+      }
+    }
+    hm.appendChild(f);
+    // Prozent-Marken am rechten Rand nicht abschneiden
+    var maxW = W.offsetWidth;
+    qa('.sbx-k', hm).forEach(function (el) {
+      var bw = el.offsetWidth, x = parseFloat(el.style.left);
+      var nx = Math.max(8 + .25 * bw, Math.min(x, maxW - 8 - .75 * bw));
+      if (nx !== x) el.style.left = nx.toFixed(1) + 'px';
+    });
+  }
+
+  // Umschalter unten rechts
+  var dock = document.createElement('div');
+  dock.id = 'sbx-dock';
+  var note = document.createElement('div');
+  note.className = 'sbx-note';
+  note.textContent = 'Beispieldaten · kein Tracking';
+  note.hidden = true;
+  var pill = document.createElement('div');
+  pill.className = 'sbx-pill';
+  pill.setAttribute('role', 'group');
+  pill.setAttribute('aria-label', 'Heatmap-Ansicht mit Beispieldaten');
+  var btns = Object.keys(LABELS).map(function (m) {
+    var b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'sbx-seg';
+    b.setAttribute('data-mode', m);
+    b.setAttribute('aria-pressed', String(m === mode));
+    b.setAttribute('aria-label', LABELS[m]);
+    b.title = LABELS[m];
+    b.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+      ICONS[m] + '</svg><span class="sbx-lbl">' + LABELS[m] + '</span>';
+    b.addEventListener('click', function () { setMode(m); });
+    pill.appendChild(b);
+    return b;
+  });
+  dock.appendChild(note);
+  dock.appendChild(pill);
+  document.body.appendChild(dock);
+
+  function setMode(m) {
+    mode = m;
+    btns.forEach(function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-mode') === m)); });
+    note.hidden = m === 'aus';
+    render();
+  }
+
+  // Bei Layout-Aenderungen (Fenstergroesse, Schriften, Scroll-Animationen) neu ausrichten
+  var rt;
+  function relayout() { clearTimeout(rt); rt = setTimeout(function () { if (mode !== 'aus') render(); }, 150); }
+  if (window.ResizeObserver) new ResizeObserver(relayout).observe(W);
+  else window.addEventListener('resize', relayout);
+
+  // Im Modus "Bewegen" zeichnet die eigene Maus live eine Spur (nur im Browser, nichts wird gespeichert)
+  var lastT = 0, lx = -99, ly = -99;
+  document.addEventListener('mousemove', function (e) {
+    if (mode !== 'bewegen' || !hm) return;
+    var now = Date.now();
+    if (now - lastT < 30) return;
+    var r = W.getBoundingClientRect(), x = e.clientX - r.left, y = e.clientY - r.top;
+    if (Math.abs(x - lx) + Math.abs(y - ly) < 16) return;
+    lastT = now; lx = x; ly = y;
+    var d = document.createElement('div');
+    d.className = 'sbx-tr';
+    d.style.left = x.toFixed(0) + 'px';
+    d.style.top = y.toFixed(0) + 'px';
+    hm.appendChild(d);
+    trail.push(d);
+    if (trail.length > 140) { var old = trail.shift(); if (old.parentNode) old.parentNode.removeChild(old); }
+  }, { passive: true });
 })();
 </script>
 </body>
