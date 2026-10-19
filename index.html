@@ -121,7 +121,6 @@
 #sbx-hm .sbx-tr { width: 88px; height: 88px; margin: -44px 0 0 -44px; border-radius: 50%; z-index: 33; background: radial-gradient(closest-side, rgba(239,68,68,.4), rgba(250,204,21,.3) 38%, rgba(34,197,94,.18) 62%, rgba(37,99,235,.08) 82%, rgba(37,99,235,0)); animation: sbx-fade 8s linear forwards; }
 @keyframes sbx-fade { to { opacity: .3; } }
 #sbx-dock { position: fixed; right: 24px; bottom: 24px; z-index: 10000; display: flex; flex-direction: column; align-items: flex-end; gap: 8px; font-family: Inter, Arial, sans-serif; }
-#sbx-dock .sbx-note { padding: 3px 10px; border-radius: 999px; background: rgba(10,10,10,.8); color: #fff; font-size: 12px; line-height: 16px; font-weight: 500; }
 #sbx-dock .sbx-pill { display: flex; align-items: center; gap: 2px; padding: 4px; border-radius: 999px; background: #0a0a0a; color: #fff; box-shadow: 0 8px 28px rgba(0,0,0,.3); }
 #sbx-dock .sbx-seg { min-width: 44px; height: 44px; box-sizing: border-box; display: inline-flex; align-items: center; justify-content: center; gap: 7px; margin: 0; padding: 0 13px; border: 0; border-radius: 999px; background: transparent; color: #fff; font: 500 14px/20px Inter, Arial, sans-serif; letter-spacing: 0; text-transform: none; white-space: nowrap; cursor: pointer; transition: background-color .2s, color .2s; }
 #sbx-dock .sbx-seg[aria-pressed="true"] { background: #f2fce2; color: #000; }
@@ -923,10 +922,6 @@ Webflow.push(function() {
   // Umschalter unten rechts
   var dock = document.createElement('div');
   dock.id = 'sbx-dock';
-  var note = document.createElement('div');
-  note.className = 'sbx-note';
-  note.textContent = 'Beispieldaten · kein Tracking';
-  note.hidden = true;
   var pill = document.createElement('div');
   pill.className = 'sbx-pill';
   pill.setAttribute('role', 'group');
@@ -945,14 +940,12 @@ Webflow.push(function() {
     pill.appendChild(b);
     return b;
   });
-  dock.appendChild(note);
   dock.appendChild(pill);
   document.body.appendChild(dock);
 
   function setMode(m) {
     mode = m;
     btns.forEach(function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-mode') === m)); });
-    note.hidden = m === 'aus';
     render();
   }
 
