@@ -3823,8 +3823,6 @@ figcaption {
 
 /* Navigation: bleibt beim Scrollen oben, ohne eigenen Hintergrund */
 html { scroll-padding-top: 6rem; }
-/* Kein Hamburger-Menue auf dem Handy, der Kontakt-Button reicht */
-.section-nav .menu-button.w-nav-button { display: none !important; }
 
 /* Kontakt: Titel mit Linie nur ueber der linken Spalte, Headline, Text und Button rechts */
 .contact-title-col { grid-column-start: 1; grid-column-end: 6; grid-row-start: 1; grid-row-end: 2; align-self: start; }
