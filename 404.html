@@ -318,18 +318,10 @@ Webflow.push(function() {
   });
 </script>
 <script>
-/* Navigation: Hintergrund einblenden, sobald die Seite gescrollt ist */
+/* Kontakt-Button: auf der Startseite weich zum Kontakt scrollen, ohne dass die Navigation den Anfang verdeckt */
 (function () {
   var nav = document.querySelector('.section-nav');
   if (!nav) return;
-  var on = null;
-  function check() {
-    var s = (window.pageYOffset || document.documentElement.scrollTop) > 8;
-    if (s !== on) { on = s; nav.classList.toggle('sbx-scrolled', s); }
-  }
-  window.addEventListener('scroll', check, { passive: true });
-  check();
-  // Kontakt-Button: auf der Startseite weich zum Kontakt scrollen, ohne dass die Navigation den Anfang verdeckt
   var btn = nav.querySelector('.is-nav'), target = document.getElementById('contact');
   if (btn && target) btn.addEventListener('click', function (e) {
     e.preventDefault();

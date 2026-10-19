@@ -122,6 +122,17 @@
 #sbx-hm .sbx-lab { z-index: 31; display: flex; align-items: center; gap: 6px; white-space: nowrap; padding: 5px 12px; border-radius: 999px; background: #0a0a0a; color: #fff; font: 500 14px/20px InterVariable, Inter, Arial, sans-serif; letter-spacing: 0; box-shadow: 0 2px 10px rgba(0,0,0,.25); }
 #sbx-hm .sbx-lab b { font-weight: 600; }
 #sbx-hm .sbx-lab.is-fold { background: #fff; color: #0a0a0a; border: 1px solid #0a0a0a; }
+#sbx-hm .sbx-mv { z-index: 30; }
+#sbx-hm .sbx-mv svg { position: absolute; left: 0; top: 0; overflow: visible; }
+#sbx-hm .sbx-mv .h { fill: none; stroke: rgba(10,10,10,.45); stroke-width: 7; stroke-linecap: round; stroke-linejoin: round; }
+#sbx-hm .sbx-mv .p { fill: none; stroke: #d9f99d; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+#sbx-hm .sbx-mv .a, #sbx-hm .sbx-mv .dc { fill: #d9f99d; }
+#sbx-hm .sbx-mv .s { fill: #0a0a0a; stroke: #d9f99d; stroke-width: 2; }
+#sbx-hm .sbx-mv .dw { fill: rgba(217,249,157,.2); stroke: #d9f99d; stroke-width: 2; }
+#sbx-hm .sbx-mv .ck { fill: rgba(255,255,255,.16); stroke: #fff; stroke-width: 2; }
+#sbx-hm .sbx-mv .cd { fill: #fff; }
+#sbx-hm .sbx-lab.is-mv { transform: translateY(-50%); }
+#sbx-hm .is-mv i { flex: none; width: 8px; height: 8px; border-radius: 50%; background: #d9f99d; }
 #sbx-dock { position: fixed; right: 24px; bottom: 24px; z-index: 10000; font-family: InterVariable, Inter, Arial, sans-serif; }
 #sbx-dock .sbx-pill { position: relative; display: flex; align-items: center; gap: 2px; padding: 4px; border-radius: 999px; background: #0a0a0a; color: #fff; box-shadow: 0 8px 28px rgba(0,0,0,.3); }
 #sbx-dock .sbx-ind { position: absolute; left: 0; top: 4px; width: 44px; height: 44px; border-radius: 999px; background: #f2fce2; pointer-events: none; transition: transform .45s cubic-bezier(.32,.72,0,1), width .45s cubic-bezier(.32,.72,0,1); }
@@ -749,35 +760,6 @@ Webflow.push(function() {
     impressum: [[50, 50, '150%', '260%', .36]],
     cookie: [[50, 50, '125%', '240%', .3]]
   };
-  var MOVE = {
-    h1: [[13, 28, '29%', '60%', .55], [44, 25, '30%', '60%', .62], [76, 28, '32%', '60%', .48], [12, 78, '24%', '60%', .45], [41, 75, '29%', '60%', .38]],
-    cpux: [[50, 55, '110%', '190%', .6]],
-    heroP: [[14, 12, '28%', '22%', .45], [44, 12, '30%', '22%', .5], [78, 14, '28%', '22%', .34], [22, 38, '30%', '22%', .38], [58, 36, '34%', '22%', .3], [26, 62, '32%', '22%', .27], [62, 62, '30%', '22%', .2], [20, 87, '28%', '20%', .2]],
-    heroCta: [[50, 50, '175%', '300%', .7], [96, 42, '45%', '150%', .45]],
-    aboutTitle: [[24, 50, '44%', '140%', .4], [70, 50, '44%', '130%', .3]],
-    aboutIntro: [[20, 6, '40%', '10%', .4], [62, 10, '48%', '10%', .34], [28, 28, '48%', '10%', .3], [66, 40, '44%', '10%', .24], [24, 55, '44%', '10%', .22], [58, 70, '48%', '10%', .17], [30, 88, '44%', '10%', .14]],
-    bp1: [[20, 18, '40%', '36%', .45], [56, 55, '60%', '34%', .32], [28, 85, '40%', '30%', .22]],
-    bp2: [[22, 18, '42%', '36%', .4], [58, 55, '60%', '34%', .28], [26, 85, '38%', '30%', .2]],
-    bp3: [[20, 18, '40%', '36%', .3], [52, 55, '56%', '34%', .22]],
-    bp4: [[18, 18, '36%', '36%', .38], [54, 55, '60%', '34%', .26], [30, 85, '42%', '30%', .18]],
-    bp5: [[18, 18, '34%', '36%', .28], [50, 55, '56%', '34%', .18]],
-    bp6: [[18, 18, '34%', '36%', .45], [56, 55, '62%', '34%', .32], [30, 85, '40%', '30%', .2]],
-    c1: [[50, 50, '115%', '180%', .5]], c2: [[50, 50, '120%', '180%', .38]], c3: [[50, 50, '115%', '180%', .42]], c4: [[50, 50, '110%', '180%', .32]],
-    d1: [[24, 30, '44%', '46%', .4], [70, 70, '44%', '46%', .3]], d2: [[24, 30, '44%', '46%', .3], [70, 70, '44%', '46%', .22]],
-    d3: [[24, 30, '44%', '46%', .34], [70, 70, '44%', '46%', .26]], d4: [[24, 30, '44%', '46%', .26], [70, 70, '44%', '46%', .18]],
-    s1: [[20, 52, '36%', '100%', .38], [62, 52, '40%', '100%', .3]], s2: [[24, 52, '44%', '100%', .3], [70, 52, '40%', '100%', .22]],
-    s3: [[22, 52, '40%', '100%', .3], [66, 52, '44%', '100%', .22]], s4: [[24, 52, '44%', '100%', .36], [70, 52, '40%', '100%', .28]],
-    s5: [[22, 52, '40%', '100%', .22], [66, 52, '44%', '100%', .16]],
-    contactTitle: [[50, 50, '140%', '150%', .24]],
-    contactHead: [[18, 52, '34%', '110%', .45], [52, 52, '34%', '110%', .4], [84, 52, '28%', '100%', .3]],
-    contactP: [[24, 18, '44%', '30%', .3], [64, 50, '50%', '30%', .25], [30, 84, '44%', '30%', .2]],
-    contactCta: [[50, 50, '175%', '300%', .65], [96, 42, '45%', '150%', .4]],
-    photo: [[58, 22, '20%', '30%', .45], [40, 56, '24%', '30%', .32], [70, 62, '18%', '24%', .2]],
-    footLogo: [[50, 50, '150%', '200%', .2]],
-    footText: [[30, 28, '56%', '50%', .22], [60, 74, '56%', '50%', .16]],
-    impressum: [[50, 50, '140%', '230%', .3]],
-    cookie: [[50, 50, '130%', '230%', .25]]
-  };
   // Klickanteil in Prozent, 1 = Klick auf ein Element ohne Link
   var CLICK = {
     heroCta: [28, 0], contactCta: [19, 0], cpux: [8, 1], c1: [7, 1], bt6: [5, 1], impressum: [4, 0], c3: [4, 1],
@@ -859,6 +841,218 @@ Webflow.push(function() {
   }
   function size(v, total) { return String(v).slice(-1) === '%' ? total * parseFloat(v) / 100 : parseFloat(v); }
 
+  // Bewegen: typische Mauswege aus Beispiel-Sitzungen. Kein Tracking, keine Spur der eigenen Maus.
+  var MV_TXT = {
+    read: 'Liest Zeile für Zeile', heroCta: 'Zögert 2,4 s, dann Klick', skim: 'Liest nur noch Zeilenanfänge',
+    bold: 'Springt von Fettdruck zu Fettdruck', refs: 'Fährt die Referenzen ab', skills: 'Überfliegt die Liste',
+    contactCta: 'Zögert 1,9 s, dann Klick'
+  };
+  function rnd(seed) { var s = seed; return function () { s = s * 16807 % 2147483647; return (s - 1) / 2147483646; }; }
+  // Textzeilen eines Elements im Seitenlayout; der wechselnde Begriff zaehlt mit seiner festen Box
+  function lines(el) {
+    if (!el) return [];
+    var B = box(el), r0 = el.getBoundingClientRect(), rs = [], rg = document.createRange(), n;
+    function push(r) { if (r.width > 2 && r.height > 2) rs.push({ top: r.top - r0.top + B.y, h: r.height, x1: r.left - r0.left + B.x, x2: r.right - r0.left + B.x }); }
+    var tw = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null);
+    while ((n = tw.nextNode())) {
+      if (!n.nodeValue.trim() || n.parentNode.closest('.sbx-rot, .sbx-sr')) continue;
+      rg.selectNodeContents(n);
+      Array.prototype.forEach.call(rg.getClientRects(), push);
+    }
+    var rot = el.querySelector('.sbx-rot');
+    if (rot) {
+      var rr = rot.getBoundingClientRect(), fs = parseFloat(getComputedStyle(rot).fontSize) || 0;
+      push({ top: rr.top, left: rr.left, right: rr.right, width: rr.width, height: rr.height - .35 * fs });
+    }
+    rs.sort(function (a, b) { return a.top - b.top; });
+    var out = [];
+    rs.forEach(function (r) {
+      var L = out[out.length - 1];
+      if (L && r.top < L.top + L.h * .5) { L.x1 = Math.min(L.x1, r.x1); L.x2 = Math.max(L.x2, r.x2); L.h = Math.max(L.h, r.top + r.h - L.top); }
+      else out.push({ top: r.top, h: r.h, x1: r.x1, x2: r.x2 });
+    });
+    return out;
+  }
+  function mid(B) { return [B.x + B.w / 2, B.y + B.h / 2]; }
+  // Streicht unter einer Zeile entlang, von Anteil a bis b der Zeilenbreite
+  function sweep(P, L, a, b, rand) {
+    var w = L.x2 - L.x1, y = L.top + L.h * .92, n = Math.max(2, Math.round(Math.abs(b - a) * w / 80));
+    for (var i = 0; i <= n; i++) P.push([L.x1 + w * (a + (b - a) * i / n), y + (rand() - .5) * L.h * .12]);
+  }
+  // Kreist um einen Button und wird enger, bis geklickt wird
+  function loop(P, B, turns, rand) {
+    var c = mid(B), n = Math.round(turns * 16);
+    for (var i = 1; i <= n; i++) {
+      var t = i / n, a = Math.PI + Math.PI * 2 * turns * t, k = 1 - .8 * t;
+      P.push([c[0] + Math.cos(a) * (B.w / 2 + 18) * k + (rand() - .5) * 5, c[1] + Math.sin(a) * (B.h / 2 + 16) * k + (rand() - .5) * 5]);
+    }
+    P.push(c);
+  }
+  // Weiche Kurve durch alle Punkte
+  function curve(P) {
+    var d = 'M' + P[0][0].toFixed(1) + ' ' + P[0][1].toFixed(1);
+    for (var i = 0; i < P.length - 1; i++) {
+      var p0 = P[i - 1] || P[i], p1 = P[i], p2 = P[i + 1], p3 = P[i + 2] || p2;
+      d += 'C' + [p1[0] + (p2[0] - p0[0]) / 6, p1[1] + (p2[1] - p0[1]) / 6, p2[0] - (p3[0] - p1[0]) / 6, p2[1] - (p3[1] - p1[1]) / 6, p2[0], p2[1]]
+        .map(function (v) { return v.toFixed(1); }).join(' ');
+    }
+    return d;
+  }
+  function xy(p) { return 'cx="' + p[0].toFixed(1) + '" cy="' + p[1].toFixed(1) + '"'; }
+  function moves(f) {
+    var rand = rnd(11), G = [], L, B, P, g;
+    function group(P) { var o = { P: P, dw: [], ck: null, lab: [] }; G.push(o); return o; }
+    // Liest Zeilen, die nach unten kuerzer werden; bleibt optional an einem Element haengen
+    function read(P, L, ends, dw, g) {
+      var d = dw && dw.el ? box(dw.el) : null;
+      for (var j = 0; j < L.length && j < ends.length; j++) {
+        var l = L[j], a = j ? .04 : 0, b = ends[j];
+        if (d && d.y + d.h / 2 > l.top && d.y + d.h / 2 < l.top + l.h) {
+          var t = (d.x + d.w / 2 - l.x1) / (l.x2 - l.x1);
+          if (t > a && t < 1) {
+            sweep(P, l, a, t, rand);
+            var p = P[P.length - 1];
+            g.dw.push([p[0], p[1], dw.s, P.length - 1]);
+            a = t;
+            d = null;
+          }
+        }
+        if (b > a) sweep(P, l, a, b, rand);
+      }
+    }
+    // 1. Einstieg: Headline Zeile fuer Zeile, haengt an CPUX, kreist vor dem Button
+    L = lines(A.h1);
+    if (L.length && A.heroCta) {
+      P = [[L[0].x1 - 30, L[0].top + L[0].h]];
+      g = group(P);
+      read(P, [L[0]], [.94], null, g);
+      g.lab.push([L[0].x2 + 24, L[0].top + L[0].h * .55, MV_TXT.read, P.length - 1]);
+      read(P, L.slice(1).map(function (l) { return { top: l.top, h: l.h, x1: l.x1 + (l.x2 - l.x1) * .04, x2: l.x2 }; }),
+        L.slice(1).map(function (l, k) { return k === L.length - 2 ? .8 : .94; }), null, g);
+      read(P, lines(A.heroP), [.92, .6, .34], { el: A.cpux, s: 1.8 }, g);
+      B = box(A.heroCta);
+      loop(P, B, 1.6, rand);
+      g.ck = mid(B);
+      g.lab.push([B.x, B.y + B.h + 44, MV_TXT.heroCta, P.length - 1]);
+    }
+    // 2. Ueber mich: Einstieg gelesen, danach nur noch Zeilenanfaenge
+    L = lines(A.aboutIntro);
+    if (L.length > 2) {
+      P = [[L[0].x1 - 26, L[0].top]];
+      g = group(P);
+      read(P, L, L.map(function (l, k) { return [.95, .74, .42][k] || .1 + rand() * .08; }), null, g);
+      var j = Math.min(3, L.length - 1);
+      g.lab.push([L[j].x1 + (L[j].x2 - L[j].x1) * .22 + 26, L[j].top + L[j].h * .55, MV_TXT.skim, P.length - 1]);
+    }
+    // ... und springt von Fettdruck zu Fettdruck
+    var bts = ['bt1', 'bt2', 'bt3', 'bt4', 'bt5', 'bt6'].filter(function (k) { return A[k]; });
+    if (bts.length > 1) {
+      P = [];
+      g = group(P);
+      bts.forEach(function (k, n) {
+        var b = box(A[k]), y = b.y + Math.min(b.h, 40) * .8;
+        P.push([b.x - 10, y], [b.x + b.w * .5, y + (rand() - .5) * 4], [b.x + b.w + 8, y]);
+        if (n === 1) g.dw.push([b.x + b.w * .5, y, 1.2, P.length - 2]);
+      });
+      var b0 = box(A[bts[0]]);
+      g.lab.push([b0.x + b0.w + 30, b0.y + Math.min(b0.h, 40) * .45, MV_TXT.bold, 2]);
+    }
+    // 3. Referenzen: faehrt die Firmennamen ab, verweilt bei zweien
+    var cs = ['c1', 'c2', 'c3', 'c4'].filter(function (k) { return A[k]; });
+    if (cs.length > 1) {
+      P = [];
+      g = group(P);
+      cs.forEach(function (k, n) {
+        var b = box(A[k]), y = b.y + b.h * .82;
+        P.push([b.x - 16, y - b.h * .35], [b.x + b.w * .45, y + (rand() - .5) * 5], [b.x + b.w * (.85 + rand() * .12), y]);
+        if (n === 0) g.dw.push([b.x + b.w * .45, y, 2.1, P.length - 2]);
+        if (n === 2) g.dw.push([b.x + b.w * .45, y, 1.2, P.length - 2]);
+      });
+      var c0 = box(A[cs[0]]);
+      g.lab.push([c0.x + c0.w + 34, c0.y + c0.h * .5, MV_TXT.refs, 2]);
+    }
+    // 4. Skills: schnelles Zickzack ohne Pausen
+    var ss = ['s1', 's2', 's3', 's4', 's5'].filter(function (k) { return A[k]; });
+    if (ss.length > 1) {
+      P = [];
+      g = group(P);
+      ss.forEach(function (k, n) { var b = box(A[k]); P.push([b.x + b.w * (n % 2 ? .78 : .08), b.y + b.h * .62]); });
+      var s0 = box(A[ss[0]]);
+      g.lab.push([s0.x + s0.w + 34, s0.y + s0.h * .5, MV_TXT.skills, 1]);
+    }
+    // 5. Kontakt: liest Headline und Text, kreist laenger vor dem Button
+    L = lines(A.contactHead);
+    if (L.length && A.contactCta) {
+      P = [[L[0].x1 - 28, L[0].top + L[0].h]];
+      g = group(P);
+      read(P, L, L.map(function (l, k) { return k ? .62 : .9; }), null, g);
+      read(P, lines(A.contactP), [.72, .36], null, g);
+      B = box(A.contactCta);
+      loop(P, B, 2.2, rand);
+      g.ck = mid(B);
+      g.lab.push([B.x, B.y + B.h + 48, MV_TXT.contactCta, P.length - 1]);
+    }
+    var Wd = W.offsetWidth, Ht = W.offsetHeight, s = '';
+    G.forEach(function (o, n) {
+      var P = o.P;
+      if (P.length < 2) return;
+      var d = curve(P), cum = [0], i;
+      for (i = 1; i < P.length; i++) cum.push(cum[i - 1] + Math.sqrt(Math.pow(P[i][0] - P[i - 1][0], 2) + Math.pow(P[i][1] - P[i - 1][1], 2)));
+      var fr = function (k) { return (cum[Math.min(k, cum.length - 1)] / (cum[cum.length - 1] || 1)).toFixed(3); };
+      s += '<g data-g="' + n + '"><path class="h" d="' + d + '"/><path class="p" d="' + d + '"/><circle class="s" ' + xy(P[0]) + ' r="4"/>';
+      o.dw.forEach(function (w) { s += '<circle class="dw z" data-f="' + fr(w[3]) + '" ' + xy(w) + ' r="' + (9 + 6 * w[2]).toFixed(1) + '"/><circle class="dc z" data-f="' + fr(w[3]) + '" ' + xy(w) + ' r="3"/>'; });
+      if (o.ck) s += '<circle class="ck z" data-f="1" ' + xy(o.ck) + ' r="14"/><circle class="cd z" data-f="1" ' + xy(o.ck) + ' r="5"/>';
+      else {
+        var e = P[P.length - 1], q2 = P[P.length - 2], dx = e[0] - q2[0], dy = e[1] - q2[1], l = Math.sqrt(dx * dx + dy * dy) || 1;
+        dx /= l; dy /= l;
+        var pts = [[e[0] + dx * 8, e[1] + dy * 8], [e[0] - dx * 4 + dy * 6, e[1] - dy * 4 - dx * 6], [e[0] - dx * 4 - dy * 6, e[1] - dy * 4 + dx * 6]];
+        s += '<path class="a z" data-f="1" d="M' + pts.map(function (p) { return p[0].toFixed(1) + ' ' + p[1].toFixed(1); }).join('L') + 'Z"/>';
+      }
+      s += '</g>';
+      o.dw.forEach(function (w) {
+        var e1 = add(f, 'sbx-k is-mv', 'left:' + w[0].toFixed(1) + 'px;top:' + (w[1] - 9 - 6 * w[2]).toFixed(1) + 'px', '<i></i>' + String(w[2]).replace('.', ',') + ' s');
+        e1.setAttribute('data-g', n);
+        e1.setAttribute('data-f', fr(w[3]));
+      });
+      o.lab.forEach(function (t) {
+        var e2 = add(f, 'sbx-lab is-mv', 'left:' + t[0].toFixed(1) + 'px;top:' + t[1].toFixed(1) + 'px', '<i></i>' + t[2]);
+        e2.setAttribute('data-g', n);
+        e2.setAttribute('data-f', fr(t[3]));
+      });
+    });
+    add(f, 'sbx-mv', 'left:0;top:0;width:' + Wd + 'px;height:' + Ht + 'px',
+      '<svg width="' + Wd + '" height="' + Ht + '" viewBox="0 0 ' + Wd + ' ' + Ht + '">' + s + '</svg>');
+  }
+  // Wege beim Umschalten einzeichnen, Pausen, Klicks und Hinweise erscheinen, wenn der Weg dort ankommt
+  function drawIn() {
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    var svg = hm.querySelector('.sbx-mv svg'), T = {};
+    function at(n, el) { return T[n][0] + T[n][1] * (parseFloat(el.getAttribute('data-f')) || 0); }
+    if (!svg) return;
+    Array.prototype.forEach.call(svg.querySelectorAll('g[data-g]'), function (gr) {
+      var n = gr.getAttribute('data-g'), ps = gr.querySelectorAll('path.h, path.p'), len = ps[0].getTotalLength();
+      var dur = Math.max(1, Math.min(2.6, len / 1000)), del = .2 + .12 * n;
+      T[n] = [del, dur];
+      Array.prototype.forEach.call(ps, function (p) {
+        p.style.strokeDasharray = len + ' ' + len;
+        p.style.strokeDashoffset = len;
+        p.getBoundingClientRect();
+        p.style.transition = 'stroke-dashoffset ' + dur.toFixed(2) + 's linear ' + del.toFixed(2) + 's';
+        p.style.strokeDashoffset = '0';
+      });
+      Array.prototype.forEach.call(gr.querySelectorAll('.z'), function (z) {
+        z.style.opacity = '0';
+        z.getBoundingClientRect();
+        z.style.transition = 'opacity .3s ease ' + Math.max(0, at(n, z) - .05).toFixed(2) + 's';
+        z.style.opacity = '1';
+      });
+    });
+    cur.forEach(function (el) {
+      var n = el.getAttribute('data-g');
+      if (n !== null && T[n]) el.style.transitionDelay = Math.max(0, at(n, el) - .05).toFixed(2) + 's';
+    });
+  }
+
   var mode = 'aus', hm = null, dim = null, A = null, tsPrev = null, cur = [], fadeIn = false, flatT = 0;
   function add(f, cls, css, html) {
     var d = document.createElement('div');
@@ -877,6 +1071,7 @@ Webflow.push(function() {
   function drop(fade) {
     cur.forEach(function (el) {
       if (!fade) { if (el.parentNode) el.parentNode.removeChild(el); return; }
+      el.style.transitionDelay = '0s';
       el.className = el.className.replace(' is-pre', '') + ' is-out';
       setTimeout(function () { if (el.parentNode) el.parentNode.removeChild(el); }, 280);
     });
@@ -936,22 +1131,29 @@ Webflow.push(function() {
         add(f, 'sbx-k' + (dead ? ' is-dead' : ''), 'left:' + bx.toFixed(1) + 'px;top:' + by.toFixed(1) + 'px',
           '<i style="background:' + rgba(col(lv), 1) + '"></i>' + pct + ' %' + (dead ? ' · kein Link' : ''));
       }
+    } else if (mode === 'bewegen') {
+      moves(f);
     } else {
-      var src = mode === 'heatmap' ? HEAT : MOVE;
-      for (k in src) {
+      for (k in HEAT) {
         if (!A[k]) continue;
         B = box(A[k]);
-        for (var m = 0; m < src[k].length; m++) blob(f, B, src[k][m]);
+        for (var m = 0; m < HEAT[k].length; m++) blob(f, B, HEAT[k][m]);
       }
     }
     hm.appendChild(f);
+    if (fadeIn && mode === 'bewegen') drawIn();
     if (fadeIn) {
       void hm.offsetWidth;
       cur.forEach(function (el) { el.className = el.className.replace(' is-pre', ''); });
     }
-    // Prozent-Marken am rechten Rand nicht abschneiden
+    // Marken und Hinweise am rechten Rand nicht abschneiden
     var maxW = W.offsetWidth;
     cur.forEach(function (el) {
+      if (el.className.indexOf('sbx-lab is-mv') === 0) {
+        var lx = parseFloat(el.style.left), nl = Math.max(8, Math.min(lx, maxW - 8 - el.offsetWidth));
+        if (nl !== lx) el.style.left = nl.toFixed(1) + 'px';
+        return;
+      }
       if (el.className.indexOf('sbx-k') !== 0) return;
       var bw = el.offsetWidth, x = parseFloat(el.style.left);
       var nx = Math.max(8 + .25 * bw, Math.min(x, maxW - 8 - .75 * bw));
@@ -1053,18 +1255,10 @@ Webflow.push(function() {
 })();
 </script>
 <script>
-/* Navigation: Hintergrund einblenden, sobald die Seite gescrollt ist */
+/* Kontakt-Button: auf der Startseite weich zum Kontakt scrollen, ohne dass die Navigation den Anfang verdeckt */
 (function () {
   var nav = document.querySelector('.section-nav');
   if (!nav) return;
-  var on = null;
-  function check() {
-    var s = (window.pageYOffset || document.documentElement.scrollTop) > 8;
-    if (s !== on) { on = s; nav.classList.toggle('sbx-scrolled', s); }
-  }
-  window.addEventListener('scroll', check, { passive: true });
-  check();
-  // Kontakt-Button: auf der Startseite weich zum Kontakt scrollen, ohne dass die Navigation den Anfang verdeckt
   var btn = nav.querySelector('.is-nav'), target = document.getElementById('contact');
   if (btn && target) btn.addEventListener('click', function (e) {
     e.preventDefault();
