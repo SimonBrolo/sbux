@@ -224,6 +224,7 @@
               </div>
             </div>
           </nav>
+          <a href="index.html#contact" class="button small is-nav w-button">Kontakt</a>
           <div class="menu-button w-nav-button">
             <div class="menu-icon">
               <div class="menu-icon-line-top"></div>
@@ -815,6 +816,29 @@ Webflow.push(function() {
       target.focus();
     });
   });
+</script>
+<script>
+/* Navigation: Hintergrund einblenden, sobald die Seite gescrollt ist */
+(function () {
+  var nav = document.querySelector('.section-nav');
+  if (!nav) return;
+  var on = null;
+  function check() {
+    var s = (window.pageYOffset || document.documentElement.scrollTop) > 8;
+    if (s !== on) { on = s; nav.classList.toggle('sbx-scrolled', s); }
+  }
+  window.addEventListener('scroll', check, { passive: true });
+  check();
+  // Kontakt-Button: auf der Startseite weich zum Kontakt scrollen, ohne dass die Navigation den Anfang verdeckt
+  var btn = nav.querySelector('.is-nav'), target = document.getElementById('contact');
+  if (btn && target) btn.addEventListener('click', function (e) {
+    e.preventDefault();
+    e.stopPropagation();
+    var y = target.getBoundingClientRect().top + window.pageYOffset - nav.offsetHeight;
+    var still = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    window.scrollTo({ top: Math.max(0, y), behavior: still ? 'auto' : 'smooth' });
+  });
+})();
 </script>
 </body>
 </html>

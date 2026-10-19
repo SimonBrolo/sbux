@@ -328,6 +328,13 @@ figcaption {
   font-size: .875rem;
 }
 
+.button.small.is-nav {
+  background-color: var(--black);
+  color: var(--white);
+  align-self: center;
+  margin-left: auto;
+}
+
 .button.small.skip-to-main {
   z-index: 1;
   margin-top: -8rem;
@@ -493,7 +500,7 @@ figcaption {
 .nav-container {
   justify-content: space-between;
   align-self: center;
-  align-items: flex-start;
+  align-items: center;
   max-width: 80rem;
   margin-left: auto;
   margin-right: auto;
@@ -1119,8 +1126,9 @@ figcaption {
   height: 6rem;
   margin-left: auto;
   margin-right: auto;
+  margin-bottom: -6rem;
   display: flex;
-  position: fixed;
+  position: sticky;
   inset: 0% 0% auto;
 }
 
@@ -3813,4 +3821,13 @@ figcaption {
   }
 }
 
-
+/* Navigation: bleibt oben, bekommt beim Scrollen einen hellen, unscharfen Hintergrund */
+html { scroll-padding-top: 6rem; }
+.section-nav { transition: background-color .3s ease, box-shadow .3s ease; }
+.section-nav.sbx-scrolled { background-color: rgba(255, 255, 255, .82); -webkit-backdrop-filter: blur(16px) saturate(1.5); backdrop-filter: blur(16px) saturate(1.5); box-shadow: 0 1px 0 rgba(0, 0, 0, .06); }
+@media (prefers-color-scheme: dark) {
+  .section-nav.sbx-scrolled { background-color: rgba(10, 10, 10, .78); box-shadow: 0 1px 0 rgba(255, 255, 255, .08); }
+  .section-nav.sbx-scrolled .logo-image { color: #fff; }
+  .section-nav.sbx-scrolled .button.is-nav { background-color: #fff; color: #0a0a0a; }
+  .section-nav.sbx-scrolled .menu-icon-line-top, .section-nav.sbx-scrolled .menu-icon-line-middle, .section-nav.sbx-scrolled .menu-icon-line-bottom { background-color: #fff; }
+}

@@ -97,11 +97,12 @@
 }
 </script>
   <style>
-/* Wechselnde Zielgruppe in der Hero-Überschrift */
-.sbx-rot { display: inline-grid; overflow: hidden; vertical-align: bottom; padding-bottom: .1em; margin-bottom: -.1em; }
-.sbx-rot > span { grid-area: 1 / 1; white-space: nowrap; transition: transform .8s cubic-bezier(.19,1,.22,1), opacity .5s; }
-.sbx-rot > span.is-next { transform: translateY(105%); opacity: 0; }
-.sbx-rot > span.is-prev { transform: translateY(-105%); opacity: 0; }
+/* Wechselnde Zielgruppe in der Hero-Überschrift: neues Wort fällt von oben ein und schwingt elastisch aus */
+.sbx-rot { display: inline-grid; overflow: hidden; vertical-align: bottom; padding-bottom: .35em; margin-bottom: -.35em; }
+.sbx-rot > span { grid-area: 1 / 1; white-space: nowrap; transition: transform 1.2s cubic-bezier(.34,1.56,.64,1), opacity .3s ease; }
+@supports (transition-timing-function: linear(0, 1)) { .sbx-rot > span { transition-timing-function: linear(0, 0.2607 2.5%, 0.5696 5%, 0.8535 7.5%, 1.0687 10%, 1.1987 12.5%, 1.2482 15%, 1.2354 17.5%, 1.1835 20%, 1.1154 22.5%, 1.0489 25%, 0.9959 27.5%, 0.9615 30%, 0.9458 32.5%, 0.9454 35%, 0.9551 37.5%, 0.9699 40%, 0.9852 42.5%, 0.9981 45%, 1.007 47.5%, 1.0116 50%, 1.0125 52.5%, 1.0108 55%, 1.0077 57.5%, 1.0042 60%, 1.0011 62.5%, 0.9989 65%, 0.9976 67.5%, 0.9972 70%, 0.9974 72.5%, 0.9981 75%, 0.9988 77.5%, 0.9996 80%, 1.0001 82.5%, 1.0005 85%, 1.0006 87.5%, 1.0006 90%, 1.0005 92.5%, 1.0003 95%, 1.0001 97.5%, 1), ease; } }
+.sbx-rot > span.is-next { transform: translateY(-105%); opacity: 0; }
+.sbx-rot > span.is-prev { transform: translateY(105%); opacity: 0; }
 .sbx-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; }
 </style>
   <style>
@@ -179,6 +180,7 @@
               </div>
             </div>
           </nav>
+          <a href="#contact" class="button small is-nav w-button">Kontakt</a>
           <div class="menu-button w-nav-button">
             <div class="menu-icon">
               <div class="menu-icon-line-top"></div>
@@ -1048,6 +1050,29 @@ Webflow.push(function() {
   function relayout() { clearTimeout(rt); rt = setTimeout(function () { if (mode !== 'aus') render(false); }, 150); }
   if (window.ResizeObserver) new ResizeObserver(relayout).observe(W);
   else window.addEventListener('resize', relayout);
+})();
+</script>
+<script>
+/* Navigation: Hintergrund einblenden, sobald die Seite gescrollt ist */
+(function () {
+  var nav = document.querySelector('.section-nav');
+  if (!nav) return;
+  var on = null;
+  function check() {
+    var s = (window.pageYOffset || document.documentElement.scrollTop) > 8;
+    if (s !== on) { on = s; nav.classList.toggle('sbx-scrolled', s); }
+  }
+  window.addEventListener('scroll', check, { passive: true });
+  check();
+  // Kontakt-Button: auf der Startseite weich zum Kontakt scrollen, ohne dass die Navigation den Anfang verdeckt
+  var btn = nav.querySelector('.is-nav'), target = document.getElementById('contact');
+  if (btn && target) btn.addEventListener('click', function (e) {
+    e.preventDefault();
+    e.stopPropagation();
+    var y = target.getBoundingClientRect().top + window.pageYOffset - nav.offsetHeight;
+    var still = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    window.scrollTo({ top: Math.max(0, y), behavior: still ? 'auto' : 'smooth' });
+  });
 })();
 </script>
 </body>
