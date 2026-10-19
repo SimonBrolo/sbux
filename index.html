@@ -113,25 +113,25 @@
 #sbx-hm .sbx-dim { left: 0; top: 0; width: 100%; height: 100%; z-index: 20; opacity: 0; }
 #sbx-hm .sbx-dim.is-on { opacity: 1; }
 #sbx-hm .sbx-b { transform: translate(-50%, -50%); border-radius: 50%; z-index: 30; }
-#sbx-hm .sbx-k { z-index: 31; transform: translate(-25%, -75%); display: flex; align-items: center; gap: 6px; white-space: nowrap; padding: 3px 9px 3px 7px; border: 1px solid #0a0a0a; border-radius: 999px; background: #0a0a0a; color: #fff; font: 600 13px/18px Inter, Arial, sans-serif; letter-spacing: 0; box-shadow: 0 2px 10px rgba(0,0,0,.28); }
+#sbx-hm .sbx-k { z-index: 31; transform: translate(-25%, -75%); display: flex; align-items: center; gap: 6px; white-space: nowrap; padding: 3px 9px 3px 7px; border: 1px solid #0a0a0a; border-radius: 999px; background: #0a0a0a; color: #fff; font: 600 13px/18px InterVariable, Inter, Arial, sans-serif; letter-spacing: 0; box-shadow: 0 2px 10px rgba(0,0,0,.28); }
 #sbx-hm .sbx-k.is-dead { background: #fff; color: #0a0a0a; }
 #sbx-hm .sbx-k i { flex: none; width: 8px; height: 8px; border-radius: 50%; }
 #sbx-hm .sbx-band { left: 0; width: 100%; z-index: 20; mix-blend-mode: multiply; }
 #sbx-hm .sbx-line { left: 0; width: 100%; height: 0; z-index: 31; border-top: 2px dashed rgba(10,10,10,.75); }
-#sbx-hm .sbx-lab { z-index: 31; display: flex; align-items: center; gap: 6px; white-space: nowrap; padding: 5px 12px; border-radius: 999px; background: #0a0a0a; color: #fff; font: 500 14px/20px Inter, Arial, sans-serif; letter-spacing: 0; box-shadow: 0 2px 10px rgba(0,0,0,.25); }
+#sbx-hm .sbx-lab { z-index: 31; display: flex; align-items: center; gap: 6px; white-space: nowrap; padding: 5px 12px; border-radius: 999px; background: #0a0a0a; color: #fff; font: 500 14px/20px InterVariable, Inter, Arial, sans-serif; letter-spacing: 0; box-shadow: 0 2px 10px rgba(0,0,0,.25); }
 #sbx-hm .sbx-lab b { font-weight: 600; }
 #sbx-hm .sbx-lab.is-fold { background: #fff; color: #0a0a0a; border: 1px solid #0a0a0a; }
-#sbx-dock { position: fixed; right: 24px; bottom: 24px; z-index: 10000; font-family: Inter, Arial, sans-serif; }
+#sbx-dock { position: fixed; right: 24px; bottom: 24px; z-index: 10000; font-family: InterVariable, Inter, Arial, sans-serif; }
 #sbx-dock .sbx-pill { position: relative; display: flex; align-items: center; gap: 2px; padding: 4px; border-radius: 999px; background: #0a0a0a; color: #fff; box-shadow: 0 8px 28px rgba(0,0,0,.3); }
 #sbx-dock .sbx-ind { position: absolute; left: 0; top: 4px; width: 44px; height: 44px; border-radius: 999px; background: #f2fce2; pointer-events: none; transition: transform .45s cubic-bezier(.32,.72,0,1), width .45s cubic-bezier(.32,.72,0,1); }
-#sbx-dock .sbx-seg { position: relative; z-index: 1; flex: none; min-width: 44px; height: 44px; box-sizing: border-box; display: inline-flex; align-items: center; justify-content: center; margin: 0; padding: 0 13px; border: 0; border-radius: 999px; background: transparent; color: #fff; font: 500 14px/20px Inter, Arial, sans-serif; letter-spacing: 0; text-transform: none; white-space: nowrap; cursor: pointer; transition: background-color .2s, color .2s; }
+#sbx-dock .sbx-seg { position: relative; z-index: 1; flex: none; min-width: 44px; height: 44px; box-sizing: border-box; display: inline-flex; align-items: center; justify-content: center; margin: 0; padding: 0 13px; border: 0; border-radius: 999px; background: transparent; color: #fff; font: 500 14px/20px InterVariable, Inter, Arial, sans-serif; letter-spacing: 0; text-transform: none; white-space: nowrap; cursor: pointer; transition: background-color .2s, color .2s; }
 #sbx-dock .sbx-seg[aria-pressed="true"] { color: #000; transition: background-color .2s, color .2s .04s; }
 #sbx-dock .sbx-seg[aria-pressed="false"]:hover { background: rgba(255,255,255,.14); }
 #sbx-dock .sbx-seg:focus-visible { outline: 3px solid #9fd45a; outline-offset: 2px; }
 #sbx-dock .sbx-seg svg { flex: none; }
 #sbx-dock .sbx-lbl { display: block; flex: none; width: 0; margin-left: 0; overflow: hidden; opacity: 0; transition: width .45s cubic-bezier(.32,.72,0,1), margin-left .45s cubic-bezier(.32,.72,0,1), opacity .15s; }
 #sbx-dock .sbx-seg[aria-pressed="true"] .sbx-lbl { width: var(--w, auto); margin-left: 7px; opacity: 1; transition: width .45s cubic-bezier(.32,.72,0,1), margin-left .45s cubic-bezier(.32,.72,0,1), opacity .25s .12s; }
-#sbx-dock .sbx-tip { position: absolute; left: 50%; bottom: calc(100% + 12px); padding: 5px 10px; border-radius: 8px; background: #0a0a0a; color: #fff; font: 500 13px/18px Inter, Arial, sans-serif; letter-spacing: 0; white-space: nowrap; box-shadow: 0 4px 16px rgba(0,0,0,.25); opacity: 0; transform: translate(-50%, 4px); pointer-events: none; transition: opacity .15s, transform .15s; }
+#sbx-dock .sbx-tip { position: absolute; left: 50%; bottom: calc(100% + 12px); padding: 5px 10px; border-radius: 8px; background: #0a0a0a; color: #fff; font: 500 13px/18px InterVariable, Inter, Arial, sans-serif; letter-spacing: 0; white-space: nowrap; box-shadow: 0 4px 16px rgba(0,0,0,.25); opacity: 0; transform: translate(-50%, 4px); pointer-events: none; transition: opacity .15s, transform .15s; }
 #sbx-dock .sbx-tip::after { content: ""; position: absolute; left: 50%; top: 100%; margin-left: -5px; border: 5px solid transparent; border-top-color: #0a0a0a; }
 @media (hover: hover) { #sbx-dock .sbx-seg[aria-pressed="false"]:hover .sbx-tip { opacity: 1; transform: translate(-50%, 0); transition-delay: .2s; } }
 #sbx-dock .sbx-seg[aria-pressed="false"]:focus-visible .sbx-tip { opacity: 1; transform: translate(-50%, 0); }
@@ -476,28 +476,28 @@
               <div id="w-node-_5b931a6c-c811-8665-1c3a-692638b3b89b-be622079" class="content-wrapper">
                 <article class="list-item is-first">
                   <div class="padding-bottom padding-small">
-                    <h3 class="text-weight-bold">Cordes &amp; Graefe</h3>
+                    <h3>Cordes &amp; Graefe</h3>
                     <h3 class="text-weight-regular">Fokusgruppen, Nutzertests und Konzeptarbeit für GC&nbsp;ONLINE&nbsp;PLUS</h3>
                   </div>
                   <p class="text-size-medium margin-0">Laufzeit: seit 2024</p>
                 </article>
                 <article class="list-item">
                   <div class="padding-bottom padding-small">
-                    <h3 class="text-weight-bold">Unicepta</h3>
+                    <h3>Unicepta</h3>
                     <h3 class="text-weight-regular">Konzeption und Gestaltung eines digitalen Executive News Briefings</h3>
                   </div>
                   <p class="text-size-medium margin-0">Laufzeit: 2021 bis 2023</p>
                 </article>
                 <article class="list-item">
                   <div class="padding-bottom padding-small">
-                    <h3 class="text-weight-bold">Soennecken</h3>
+                    <h3>Soennecken</h3>
                     <h3 class="text-weight-regular">Teilprojektleitung UX/UI: White-Label-Shopsystem für 800&nbsp;Händler</h3>
                   </div>
                   <p class="text-size-medium margin-0">Laufzeit: 2023 bis 2025</p>
                 </article>
                 <article class="list-item is-last">
                   <div class="padding-bottom padding-small">
-                    <h3 class="text-weight-bold">Raiffeisen Networld</h3>
+                    <h3>Raiffeisen Networld</h3>
                     <h3 class="text-weight-regular">UX/UI-Design und Ausbau einer Handelsplattform für Agrarbetriebe</h3>
                   </div>
                   <p class="text-size-medium margin-0">Laufzeit: 2019 bis 2025</p>

@@ -1,47 +1,7 @@
 @font-face {
-  font-family: Inter;
-  src: url('../fonts/Inter-Regular.woff2') format("woff2");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: Inter-Display;
-  src: url('../fonts/InterDisplay-Medium.woff2') format("woff2");
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: Inter;
-  src: url('../fonts/Inter-Medium.woff2') format("woff2");
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: Inter-Display;
-  src: url('../fonts/Inter-Display.woff2') format("woff2");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: Inter;
-  src: url('../fonts/Inter-Bold.woff2') format("woff2");
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: Inter-Display;
-  src: url('../fonts/InterDisplay-Bold.woff2') format("woff2");
-  font-weight: 700;
+  font-family: InterVariable;
+  src: url('../fonts/InterVariable.woff2') format("woff2");
+  font-weight: 100 900;
   font-style: normal;
   font-display: swap;
 }
@@ -62,7 +22,7 @@ body {
   color: var(--black);
   padding-top: 0;
   padding-bottom: 0;
-  font-family: Inter, Arial, sans-serif;
+  font-family: InterVariable, Arial, sans-serif;
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.5;
@@ -72,9 +32,9 @@ h1 {
   letter-spacing: -.025em;
   margin-top: 0;
   margin-bottom: 0;
-  font-family: Inter-Display, Arial, sans-serif;
+  font-family: InterVariable, Arial, sans-serif;
   font-size: 5rem;
-  font-weight: 700;
+  font-weight: 600;
   line-height: 1.1;
 }
 
@@ -82,9 +42,9 @@ h2 {
   letter-spacing: -.03em;
   margin-top: 0;
   margin-bottom: 0;
-  font-family: Inter-Display, Arial, sans-serif;
+  font-family: InterVariable, Arial, sans-serif;
   font-size: 3.5rem;
-  font-weight: 700;
+  font-weight: 600;
   line-height: 1.2;
 }
 
@@ -92,9 +52,9 @@ h3 {
   letter-spacing: -.02em;
   margin-top: 0;
   margin-bottom: 0;
-  font-family: Inter-Display, Arial, sans-serif;
+  font-family: InterVariable, Arial, sans-serif;
   font-size: 2rem;
-  font-weight: 700;
+  font-weight: 600;
   line-height: 1.2;
 }
 
@@ -102,9 +62,9 @@ h4 {
   letter-spacing: -.015em;
   margin-top: 0;
   margin-bottom: 0;
-  font-family: Inter-Display, Arial, sans-serif;
+  font-family: InterVariable, Arial, sans-serif;
   font-size: 1.5rem;
-  font-weight: 700;
+  font-weight: 600;
   line-height: 1.2;
 }
 
@@ -112,9 +72,9 @@ h5 {
   letter-spacing: -.01em;
   margin-top: 0;
   margin-bottom: 0;
-  font-family: Inter-Display, Arial, sans-serif;
+  font-family: InterVariable, Arial, sans-serif;
   font-size: 1.25rem;
-  font-weight: 700;
+  font-weight: 600;
   line-height: 1.2;
 }
 
@@ -122,9 +82,9 @@ h6 {
   letter-spacing: -.01em;
   margin-top: 0;
   margin-bottom: 0;
-  font-family: Inter-Display, Arial, sans-serif;
+  font-family: InterVariable, Arial, sans-serif;
   font-size: 1rem;
-  font-weight: 700;
+  font-weight: 600;
   line-height: 1.2;
 }
 
@@ -638,7 +598,7 @@ figcaption {
 
 .heading-large {
   font-size: 3.5rem;
-  font-weight: 700;
+  font-weight: 600;
   line-height: 1.2;
 }
 
@@ -758,7 +718,7 @@ figcaption {
 
 .heading-xlarge {
   font-size: 5rem;
-  font-weight: 700;
+  font-weight: 600;
   line-height: 1.1;
 }
 
@@ -821,7 +781,7 @@ figcaption {
 
 .heading-medium {
   font-size: 2rem;
-  font-weight: 700;
+  font-weight: 600;
   line-height: 1.2;
 }
 
@@ -884,7 +844,7 @@ figcaption {
 
 .heading-xsmall {
   font-size: 1.25rem;
-  font-weight: 700;
+  font-weight: 600;
   line-height: 1.2;
 }
 
@@ -969,7 +929,7 @@ figcaption {
 .heading-small {
   text-transform: none;
   font-size: 1.5rem;
-  font-weight: 700;
+  font-weight: 600;
   line-height: 1.2;
 }
 
@@ -3850,31 +3810,3 @@ figcaption {
 }
 
 
-@font-face {
-  font-family: 'Inter';
-  src: url('../fonts/Inter-Regular.woff2') format('woff2');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'Inter-Display';
-  src: url('../fonts/InterDisplay-Medium.woff2') format('woff2');
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'Inter';
-  src: url('../fonts/Inter-Medium.woff2') format('woff2');
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'Inter-Display';
-  src: url('../fonts/Inter-Display.woff2') format('woff2');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
