@@ -398,10 +398,17 @@ Webflow.push(function() {
   });
 </script>
 <script>
-/* Kontakt-Button: auf der Startseite weich zum Kontakt scrollen, ohne dass die Navigation den Anfang verdeckt */
+/* Navigation: heller Schleier hinter der Unschaerfe, sobald gescrollt ist. Kontakt-Button: weich zum Kontakt scrollen */
 (function () {
   var nav = document.querySelector('.section-nav');
   if (!nav) return;
+  var on = null;
+  function check() {
+    var s = (window.pageYOffset || document.documentElement.scrollTop) > 8;
+    if (s !== on) { on = s; nav.classList.toggle('sbx-scrolled', s); }
+  }
+  window.addEventListener('scroll', check, { passive: true });
+  check();
   var btn = nav.querySelector('.is-nav'), target = document.getElementById('contact');
   if (btn && target) btn.addEventListener('click', function (e) {
     e.preventDefault();

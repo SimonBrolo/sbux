@@ -133,7 +133,7 @@
 #sbx-hm .sbx-mv .cd { fill: #fff; }
 #sbx-hm .sbx-lab.is-mv { transform: translateY(-50%); }
 #sbx-hm .is-mv i { flex: none; width: 8px; height: 8px; border-radius: 50%; background: #d9f99d; }
-#sbx-dock { position: fixed; right: 24px; bottom: 24px; z-index: 10000; font-family: InterVariable, Inter, Arial, sans-serif; }
+#sbx-dock { position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%); z-index: 10000; font-family: InterVariable, Inter, Arial, sans-serif; }
 #sbx-dock .sbx-pill { position: relative; display: flex; align-items: center; gap: 2px; padding: 4px; border-radius: 999px; background: #0a0a0a; color: #fff; box-shadow: 0 8px 28px rgba(0,0,0,.3); }
 #sbx-dock .sbx-ind { position: absolute; left: 0; top: 4px; width: 44px; height: 44px; border-radius: 999px; background: #f2fce2; pointer-events: none; transition: transform .45s cubic-bezier(.32,.72,0,1), width .45s cubic-bezier(.32,.72,0,1); }
 #sbx-dock .sbx-seg { position: relative; z-index: 1; flex: none; min-width: 44px; height: 44px; box-sizing: border-box; display: inline-flex; align-items: center; justify-content: center; margin: 0; padding: 0 13px; border: 0; border-radius: 999px; background: transparent; color: #fff; font: 500 14px/20px InterVariable, Inter, Arial, sans-serif; letter-spacing: 0; text-transform: none; white-space: nowrap; cursor: pointer; transition: background-color .2s, color .2s; }
@@ -154,7 +154,7 @@
 #sbx-dock .sbx-hint.is-on.is-away, #sbx-dock .sbx-hint.is-done { opacity: 0; pointer-events: none; }
 #sbx-dock .sbx-hint:focus-visible { outline: 3px solid #9fd45a; outline-offset: 2px; }
 @keyframes sbx-bob { 0%, 100% { transform: translate(-50%, 0); } 50% { transform: translate(-50%, -7px); } }
-@media (max-width: 640px) { #sbx-dock { right: 12px; bottom: 12px; } }
+@media (max-width: 640px) { #sbx-dock { bottom: 12px; } }
 @media (prefers-reduced-motion: reduce) { #sbx-dock *, #sbx-hm > div { transition: none !important; } #sbx-dock .sbx-hint { animation: none !important; } }
 @media (prefers-color-scheme: dark) { #sbx-hm .sbx-band { mix-blend-mode: normal; } }
 @media print { #sbx-hm, #sbx-dock { display: none; } }
@@ -561,15 +561,19 @@
         <div class="page-padding">
           <div style="opacity:0" class="container-large">
             <div class="layout-12-column">
-              <div id="w-node-_17457359-3127-e018-2d4c-43de2f27dfc7-be622079" style="width:0%;height:100%" class="section-title">
-                <h2>Kontakt</h2>
+              <div class="contact-title-col">
+                <div id="w-node-_17457359-3127-e018-2d4c-43de2f27dfc7-be622079" style="width:0%;height:100%" class="section-title">
+                  <h2>Kontakt</h2>
+                </div>
               </div>
-              <div id="w-node-_17457359-3127-e018-2d4c-43de2f27dfca-be622079" class="content-wrapper">
-                <h3 style="-webkit-transform:translate3d(0, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(10deg, 6deg);-moz-transform:translate3d(0, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(10deg, 6deg);-ms-transform:translate3d(0, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(10deg, 6deg);transform:translate3d(0, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(10deg, 6deg);opacity:0" class="heading-xlarge">Erzähl mir von deinem Projekt</h3>
-              </div>
-              <div id="w-node-_17457359-3127-e018-2d4c-43de2f27dfcd-be622079" class="content-wrapper">
-                <p>Schreib mir kurz, worum es geht, wie lange das Projekt läuft und ab wann du jemanden brauchst. Ich melde mich mit meiner Verfügbarkeit.</p>
-                <a href="mailto:mail@sbux.pro?subject=Projektanfrage" class="button w-button">Projekt anfragen →</a>
+              <div class="contact-content-col">
+                <div id="w-node-_17457359-3127-e018-2d4c-43de2f27dfca-be622079" class="content-wrapper">
+                  <h3 style="-webkit-transform:translate3d(0, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(10deg, 6deg);-moz-transform:translate3d(0, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(10deg, 6deg);-ms-transform:translate3d(0, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(10deg, 6deg);transform:translate3d(0, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(10deg, 6deg);opacity:0" class="heading-xlarge">Erzähl mir von deinem Projekt</h3>
+                </div>
+                <div id="w-node-_17457359-3127-e018-2d4c-43de2f27dfcd-be622079" class="content-wrapper">
+                  <p>Schreib mir kurz, worum es geht, wie lange das Projekt läuft und ab wann du jemanden brauchst. Ich melde mich mit meiner Verfügbarkeit.</p>
+                  <a href="mailto:mail@sbux.pro?subject=Projektanfrage" class="button w-button">Projekt anfragen →</a>
+                </div>
               </div>
             </div>
           </div>
@@ -1192,7 +1196,7 @@ Webflow.push(function() {
   var hint = document.createElement('button'), hintDone = false;
   hint.type = 'button';
   hint.className = 'sbx-hint';
-  hint.textContent = 'UX-Analyse ausprobieren';
+  hint.textContent = 'Mit der UX-Brille ansehen';
   hint.addEventListener('click', function () { setMode('heatmap'); });
   dock.appendChild(hint);
   function hintAway(away) { if (!hintDone) hint.className = 'sbx-hint is-on' + (away ? ' is-away' : ''); }
@@ -1255,10 +1259,17 @@ Webflow.push(function() {
 })();
 </script>
 <script>
-/* Kontakt-Button: auf der Startseite weich zum Kontakt scrollen, ohne dass die Navigation den Anfang verdeckt */
+/* Navigation: heller Schleier hinter der Unschaerfe, sobald gescrollt ist. Kontakt-Button: weich zum Kontakt scrollen */
 (function () {
   var nav = document.querySelector('.section-nav');
   if (!nav) return;
+  var on = null;
+  function check() {
+    var s = (window.pageYOffset || document.documentElement.scrollTop) > 8;
+    if (s !== on) { on = s; nav.classList.toggle('sbx-scrolled', s); }
+  }
+  window.addEventListener('scroll', check, { passive: true });
+  check();
   var btn = nav.querySelector('.is-nav'), target = document.getElementById('contact');
   if (btn && target) btn.addEventListener('click', function (e) {
     e.preventDefault();

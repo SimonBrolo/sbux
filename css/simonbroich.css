@@ -3823,3 +3823,26 @@ figcaption {
 
 /* Navigation: bleibt beim Scrollen oben, ohne eigenen Hintergrund */
 html { scroll-padding-top: 6rem; }
+
+/* Kontakt: Titel mit Linie nur ueber der linken Spalte, Headline, Text und Button rechts */
+.contact-title-col { grid-column-start: 1; grid-column-end: 6; grid-row-start: 1; grid-row-end: 2; align-self: start; }
+.contact-content-col { grid-column-start: 7; grid-column-end: 13; grid-row-start: 1; grid-row-end: 2; grid-row-gap: 2rem; flex-direction: column; display: flex; }
+@media screen and (max-width: 991px) {
+  .contact-title-col { grid-column-start: 1; grid-column-end: 5; }
+  .contact-content-col { grid-column-start: 5; grid-column-end: 9; }
+}
+@media screen and (max-width: 767px) {
+  .contact-title-col { grid-column-start: 1; grid-column-end: 5; grid-row-start: auto; grid-row-end: auto; }
+  .contact-content-col { grid-column-start: 1; grid-column-end: 5; grid-row-start: auto; grid-row-end: auto; }
+}
+
+/* Navigation: Unschaerfe wie bei iOS, oben am staerksten, nach unten weich auslaufend */
+/* Die Einblend-Animation setzt preserve-3d auf den Page-Wrapper, damit funktioniert backdrop-filter nicht */
+.page-wrapper { transform-style: flat !important; }
+.section-nav::before, .section-nav::after, .nav-container::before { content: ""; display: block; position: absolute; left: 0; right: 0; top: 0; height: calc(100% + 1.5rem); pointer-events: none; z-index: -1; }
+.section-nav::before { -webkit-backdrop-filter: blur(1.5px); backdrop-filter: blur(1.5px); -webkit-mask-image: linear-gradient(#000 0%, #000 55%, transparent 100%); mask-image: linear-gradient(#000 0%, #000 55%, transparent 100%); }
+.section-nav::after { -webkit-backdrop-filter: blur(5px); backdrop-filter: blur(5px); -webkit-mask-image: linear-gradient(#000 0%, #000 30%, transparent 72%); mask-image: linear-gradient(#000 0%, #000 30%, transparent 72%); }
+.nav-container::before { -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px); -webkit-mask-image: linear-gradient(#000 0%, transparent 48%); mask-image: linear-gradient(#000 0%, transparent 48%); }
+/* Heller Schleier erst nach dem Scrollen, damit der Einstieg oben unveraendert bleibt */
+.nav-container::after { content: ""; display: block; position: absolute; left: 0; right: 0; top: 0; height: 100%; pointer-events: none; z-index: -1; background: linear-gradient(rgba(255, 255, 255, .75), rgba(255, 255, 255, 0)); opacity: 0; transition: opacity .35s ease; }
+.section-nav.sbx-scrolled .nav-container::after { opacity: 1; }
