@@ -74,7 +74,7 @@ h1 {
   margin-bottom: 0;
   font-family: Inter-Display, Arial, sans-serif;
   font-size: 5rem;
-  font-weight: 500;
+  font-weight: 700;
   line-height: 1.1;
 }
 
@@ -84,7 +84,7 @@ h2 {
   margin-bottom: 0;
   font-family: Inter-Display, Arial, sans-serif;
   font-size: 3.5rem;
-  font-weight: 500;
+  font-weight: 700;
   line-height: 1.2;
 }
 
@@ -94,7 +94,7 @@ h3 {
   margin-bottom: 0;
   font-family: Inter-Display, Arial, sans-serif;
   font-size: 2rem;
-  font-weight: 500;
+  font-weight: 700;
   line-height: 1.2;
 }
 
@@ -104,7 +104,7 @@ h4 {
   margin-bottom: 0;
   font-family: Inter-Display, Arial, sans-serif;
   font-size: 1.5rem;
-  font-weight: 500;
+  font-weight: 700;
   line-height: 1.2;
 }
 
@@ -114,7 +114,7 @@ h5 {
   margin-bottom: 0;
   font-family: Inter-Display, Arial, sans-serif;
   font-size: 1.25rem;
-  font-weight: 500;
+  font-weight: 700;
   line-height: 1.2;
 }
 
@@ -124,7 +124,7 @@ h6 {
   margin-bottom: 0;
   font-family: Inter-Display, Arial, sans-serif;
   font-size: 1rem;
-  font-weight: 500;
+  font-weight: 700;
   line-height: 1.2;
 }
 
@@ -337,8 +337,8 @@ figcaption {
   background-color: var(--black);
   color: var(--white);
   text-align: center;
-  letter-spacing: .125rem;
-  text-transform: uppercase;
+  letter-spacing: 0;
+  text-transform: none;
   border-radius: .375rem;
   align-self: flex-start;
   padding: 1.125rem 2rem;
@@ -638,7 +638,7 @@ figcaption {
 
 .heading-large {
   font-size: 3.5rem;
-  font-weight: 500;
+  font-weight: 700;
   line-height: 1.2;
 }
 
@@ -758,7 +758,7 @@ figcaption {
 
 .heading-xlarge {
   font-size: 5rem;
-  font-weight: 500;
+  font-weight: 700;
   line-height: 1.1;
 }
 
@@ -821,7 +821,7 @@ figcaption {
 
 .heading-medium {
   font-size: 2rem;
-  font-weight: 500;
+  font-weight: 700;
   line-height: 1.2;
 }
 
@@ -884,7 +884,7 @@ figcaption {
 
 .heading-xsmall {
   font-size: 1.25rem;
-  font-weight: 500;
+  font-weight: 700;
   line-height: 1.2;
 }
 
@@ -969,7 +969,7 @@ figcaption {
 .heading-small {
   text-transform: none;
   font-size: 1.5rem;
-  font-weight: 500;
+  font-weight: 700;
   line-height: 1.2;
 }
 

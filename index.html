@@ -107,8 +107,11 @@
   <style>
 /* Heatmap-Ansicht mit Beispieldaten (kein Tracking) */
 #sbx-hm { position: absolute; left: 0; top: 0; width: 100%; height: 100%; overflow: hidden; pointer-events: none; }
-#sbx-hm > div { position: absolute; pointer-events: none; }
-#sbx-hm .sbx-dim { left: 0; top: 0; width: 100%; height: 100%; z-index: 20; }
+#sbx-hm > div { position: absolute; pointer-events: none; transition: opacity .32s ease; }
+#sbx-hm > .is-pre, #sbx-hm > .is-out { opacity: 0; }
+#sbx-hm > .is-out { transition-duration: .22s; }
+#sbx-hm .sbx-dim { left: 0; top: 0; width: 100%; height: 100%; z-index: 20; opacity: 0; }
+#sbx-hm .sbx-dim.is-on { opacity: 1; }
 #sbx-hm .sbx-b { transform: translate(-50%, -50%); border-radius: 50%; z-index: 30; }
 #sbx-hm .sbx-k { z-index: 31; transform: translate(-25%, -75%); display: flex; align-items: center; gap: 6px; white-space: nowrap; padding: 3px 9px 3px 7px; border: 1px solid #0a0a0a; border-radius: 999px; background: #0a0a0a; color: #fff; font: 600 13px/18px Inter, Arial, sans-serif; letter-spacing: 0; box-shadow: 0 2px 10px rgba(0,0,0,.28); }
 #sbx-hm .sbx-k.is-dead { background: #fff; color: #0a0a0a; }
@@ -118,18 +121,25 @@
 #sbx-hm .sbx-lab { z-index: 31; display: flex; align-items: center; gap: 6px; white-space: nowrap; padding: 5px 12px; border-radius: 999px; background: #0a0a0a; color: #fff; font: 500 14px/20px Inter, Arial, sans-serif; letter-spacing: 0; box-shadow: 0 2px 10px rgba(0,0,0,.25); }
 #sbx-hm .sbx-lab b { font-weight: 600; }
 #sbx-hm .sbx-lab.is-fold { background: #fff; color: #0a0a0a; border: 1px solid #0a0a0a; }
-#sbx-trail { position: fixed; left: 0; top: 0; width: 100vw; height: 100vh; z-index: 9; pointer-events: none; }
-#sbx-dock { position: fixed; right: 24px; bottom: 24px; z-index: 10000; display: flex; flex-direction: column; align-items: flex-end; gap: 8px; font-family: Inter, Arial, sans-serif; }
-#sbx-dock .sbx-pill { display: flex; align-items: center; gap: 2px; padding: 4px; border-radius: 999px; background: #0a0a0a; color: #fff; box-shadow: 0 8px 28px rgba(0,0,0,.3); }
-#sbx-dock .sbx-seg { min-width: 44px; height: 44px; box-sizing: border-box; display: inline-flex; align-items: center; justify-content: center; gap: 7px; margin: 0; padding: 0 13px; border: 0; border-radius: 999px; background: transparent; color: #fff; font: 500 14px/20px Inter, Arial, sans-serif; letter-spacing: 0; text-transform: none; white-space: nowrap; cursor: pointer; transition: background-color .2s, color .2s; }
-#sbx-dock .sbx-seg[aria-pressed="true"] { background: #f2fce2; color: #000; }
+#sbx-dock { position: fixed; right: 24px; bottom: 24px; z-index: 10000; font-family: Inter, Arial, sans-serif; }
+#sbx-dock .sbx-pill { position: relative; display: flex; align-items: center; gap: 2px; padding: 4px; border-radius: 999px; background: #0a0a0a; color: #fff; box-shadow: 0 8px 28px rgba(0,0,0,.3); }
+#sbx-dock .sbx-ind { position: absolute; left: 0; top: 4px; width: 44px; height: 44px; border-radius: 999px; background: #f2fce2; pointer-events: none; transition: transform .45s cubic-bezier(.32,.72,0,1), width .45s cubic-bezier(.32,.72,0,1); }
+#sbx-dock .sbx-seg { position: relative; z-index: 1; flex: none; min-width: 44px; height: 44px; box-sizing: border-box; display: inline-flex; align-items: center; justify-content: center; margin: 0; padding: 0 13px; border: 0; border-radius: 999px; background: transparent; color: #fff; font: 500 14px/20px Inter, Arial, sans-serif; letter-spacing: 0; text-transform: none; white-space: nowrap; cursor: pointer; transition: background-color .2s, color .2s; }
+#sbx-dock .sbx-seg[aria-pressed="true"] { color: #000; transition: background-color .2s, color .2s .04s; }
 #sbx-dock .sbx-seg[aria-pressed="false"]:hover { background: rgba(255,255,255,.14); }
-#sbx-dock .sbx-seg[aria-pressed="false"] .sbx-lbl { display: none; }
 #sbx-dock .sbx-seg:focus-visible { outline: 3px solid #9fd45a; outline-offset: 2px; }
 #sbx-dock .sbx-seg svg { flex: none; }
+#sbx-dock .sbx-lbl { display: block; flex: none; width: 0; margin-left: 0; overflow: hidden; opacity: 0; transition: width .45s cubic-bezier(.32,.72,0,1), margin-left .45s cubic-bezier(.32,.72,0,1), opacity .15s; }
+#sbx-dock .sbx-seg[aria-pressed="true"] .sbx-lbl { width: var(--w, auto); margin-left: 7px; opacity: 1; transition: width .45s cubic-bezier(.32,.72,0,1), margin-left .45s cubic-bezier(.32,.72,0,1), opacity .25s .12s; }
+#sbx-dock .sbx-tip { position: absolute; left: 50%; bottom: calc(100% + 12px); padding: 5px 10px; border-radius: 8px; background: #0a0a0a; color: #fff; font: 500 13px/18px Inter, Arial, sans-serif; letter-spacing: 0; white-space: nowrap; box-shadow: 0 4px 16px rgba(0,0,0,.25); opacity: 0; transform: translate(-50%, 4px); pointer-events: none; transition: opacity .15s, transform .15s; }
+#sbx-dock .sbx-tip::after { content: ""; position: absolute; left: 50%; top: 100%; margin-left: -5px; border: 5px solid transparent; border-top-color: #0a0a0a; }
+@media (hover: hover) { #sbx-dock .sbx-seg[aria-pressed="false"]:hover .sbx-tip { opacity: 1; transform: translate(-50%, 0); transition-delay: .2s; } }
+#sbx-dock .sbx-seg[aria-pressed="false"]:focus-visible .sbx-tip { opacity: 1; transform: translate(-50%, 0); }
+#sbx-dock.is-static, #sbx-dock.is-static * { transition: none !important; }
 @media (max-width: 640px) { #sbx-dock { right: 12px; bottom: 12px; } }
+@media (prefers-reduced-motion: reduce) { #sbx-dock *, #sbx-hm > div { transition: none !important; } }
 @media (prefers-color-scheme: dark) { #sbx-hm .sbx-band { mix-blend-mode: normal; } }
-@media print { #sbx-hm, #sbx-trail, #sbx-dock { display: none; } }
+@media print { #sbx-hm, #sbx-dock { display: none; } }
 </style>
 </head>
 <body>
@@ -840,32 +850,53 @@ Webflow.push(function() {
     return { x: r.left - b.left, y: r.top - b.top, w: r.width, h: r.height };
   }
   function size(v, total) { return String(v).slice(-1) === '%' ? total * parseFloat(v) / 100 : parseFloat(v); }
+
+  var mode = 'aus', hm = null, dim = null, A = null, tsPrev = null, cur = [], fadeIn = false, flatT = 0;
   function add(f, cls, css, html) {
     var d = document.createElement('div');
-    d.className = cls;
+    d.className = cls + (fadeIn ? ' is-pre' : '');
     d.style.cssText = css;
     if (html) d.innerHTML = html;
     f.appendChild(d);
+    cur.push(d);
     return d;
   }
   function blob(f, B, s) {
     add(f, 'sbx-b', 'left:' + (B.x + B.w * s[0] / 100).toFixed(1) + 'px;top:' + (B.y + B.h * s[1] / 100).toFixed(1) +
       'px;width:' + size(s[2], B.w).toFixed(1) + 'px;height:' + size(s[3], B.h).toFixed(1) + 'px;background:' + grad(s[4]));
   }
-
-  var mode = 'aus', hm = null, A = null, tsPrev = null;
-  function render() {
-    if (hm) hm.innerHTML = '';
+  // Bisherige Ebene entfernen, beim Umschalten mit kurzem Ausblenden
+  function drop(fade) {
+    cur.forEach(function (el) {
+      if (!fade) { if (el.parentNode) el.parentNode.removeChild(el); return; }
+      el.className = el.className.replace(' is-pre', '') + ' is-out';
+      setTimeout(function () { if (el.parentNode) el.parentNode.removeChild(el); }, 280);
+    });
+    cur = [];
+  }
+  function render(fade) {
+    drop(fade);
+    fadeIn = !!fade;
     // Webflow setzt preserve-3d auf den Page-Wrapper, das schaltet mix-blend-mode ab; fuer die Scroll-Baender kurz flach rechnen
     if (tsPrev === null) tsPrev = W.style.transformStyle || '';
-    W.style.transformStyle = mode === 'scrollen' ? 'flat' : tsPrev;
-    if (mode === 'aus') return;
+    clearTimeout(flatT);
+    if (mode === 'scrollen') W.style.transformStyle = 'flat';
+    else if (fade && W.style.transformStyle === 'flat') flatT = setTimeout(function () { W.style.transformStyle = tsPrev; }, 280);
+    else W.style.transformStyle = tsPrev;
     if (!hm) {
+      if (mode === 'aus') return;
       hm = document.createElement('div');
       hm.id = 'sbx-hm';
       hm.setAttribute('aria-hidden', 'true');
+      dim = document.createElement('div');
+      dim.className = 'sbx-dim';
+      dim.style.background = 'rgba(10,10,10,' + DIM + ')';
+      hm.appendChild(dim);
       W.appendChild(hm);
+      void dim.offsetWidth;
     }
+    dim.className = 'sbx-dim' + (mode === 'heatmap' || mode === 'klicken' || mode === 'bewegen' ? ' is-on' : '');
+    if (mode === 'aus') return;
     if (!A) A = anchors();
     var f = document.createDocumentFragment(), k, B;
     if (mode === 'scrollen') {
@@ -884,145 +915,53 @@ Webflow.push(function() {
           add(f, 'sbx-lab', 'top:' + S.y + 'px;left:' + pad + 'px;transform:translateY(-50%)', lab);
         }
       });
+    } else if (mode === 'klicken') {
+      for (k in CLICK) {
+        if (!A[k]) continue;
+        B = box(A[k]);
+        var pct = CLICK[k][0], dead = CLICK[k][1], lv = Math.min(1, .38 + pct / 26);
+        var s1 = Math.round(34 + pct * 2.4), s2 = Math.round(s1 * .75);
+        var spots = k === 'photo' ? [[58.5, 21, '8%', '14%', lv], [40, 58, '6%', '10%', lv * .85]]
+          : [[50, 50, '125%', '210%', lv * .5], [44, 56, s1 + 'px', s1 + 'px', lv], [58, 44, s2 + 'px', s2 + 'px', lv * .92]];
+        for (var n = 0; n < spots.length; n++) blob(f, B, spots[n]);
+        var bx = k === 'photo' ? B.x + B.w * .61 : B.x + B.w, by = k === 'photo' ? B.y + B.h * .13 : B.y;
+        add(f, 'sbx-k' + (dead ? ' is-dead' : ''), 'left:' + bx.toFixed(1) + 'px;top:' + by.toFixed(1) + 'px',
+          '<i style="background:' + rgba(col(lv), 1) + '"></i>' + pct + ' %' + (dead ? ' · kein Link' : ''));
+      }
     } else {
-      add(f, 'sbx-dim', 'background:rgba(10,10,10,' + DIM + ')');
-      if (mode === 'klicken') {
-        for (k in CLICK) {
-          if (!A[k]) continue;
-          B = box(A[k]);
-          var pct = CLICK[k][0], dead = CLICK[k][1], lv = Math.min(1, .38 + pct / 26);
-          var s1 = Math.round(34 + pct * 2.4), s2 = Math.round(s1 * .75);
-          var spots = k === 'photo' ? [[58.5, 21, '8%', '14%', lv], [40, 58, '6%', '10%', lv * .85]]
-            : [[50, 50, '125%', '210%', lv * .5], [44, 56, s1 + 'px', s1 + 'px', lv], [58, 44, s2 + 'px', s2 + 'px', lv * .92]];
-          for (var n = 0; n < spots.length; n++) blob(f, B, spots[n]);
-          var bx = k === 'photo' ? B.x + B.w * .61 : B.x + B.w, by = k === 'photo' ? B.y + B.h * .13 : B.y;
-          add(f, 'sbx-k' + (dead ? ' is-dead' : ''), 'left:' + bx.toFixed(1) + 'px;top:' + by.toFixed(1) + 'px',
-            '<i style="background:' + rgba(col(lv), 1) + '"></i>' + pct + ' %' + (dead ? ' · kein Link' : ''));
-        }
-      } else {
-        var src = mode === 'heatmap' ? HEAT : MOVE;
-        for (k in src) {
-          if (!A[k]) continue;
-          B = box(A[k]);
-          for (var m = 0; m < src[k].length; m++) blob(f, B, src[k][m]);
-        }
+      var src = mode === 'heatmap' ? HEAT : MOVE;
+      for (k in src) {
+        if (!A[k]) continue;
+        B = box(A[k]);
+        for (var m = 0; m < src[k].length; m++) blob(f, B, src[k][m]);
       }
     }
     hm.appendChild(f);
+    if (fadeIn) {
+      void hm.offsetWidth;
+      cur.forEach(function (el) { el.className = el.className.replace(' is-pre', ''); });
+    }
     // Prozent-Marken am rechten Rand nicht abschneiden
     var maxW = W.offsetWidth;
-    qa('.sbx-k', hm).forEach(function (el) {
+    cur.forEach(function (el) {
+      if (el.className.indexOf('sbx-k') !== 0) return;
       var bw = el.offsetWidth, x = parseFloat(el.style.left);
       var nx = Math.max(8 + .25 * bw, Math.min(x, maxW - 8 - .75 * bw));
       if (nx !== x) el.style.left = nx.toFixed(1) + 'px';
     });
   }
 
-  // Im Modus "Bewegen" zeichnet die eigene Maus eine durchgehende Heatmap-Spur
-  // (nur im Browser, nichts wird gespeichert oder gesendet)
-  var SCALE = .5, RADIUS = 34, STEP = 5, ALPHA = .1, MAXPTS = 3000;
-  var cv = null, ctx = null, shadow = null, sctx = null, stamp = null, pal = null, pts = [], last = null, raf = 0;
-  function palette() {
-    var c = document.createElement('canvas');
-    c.width = 256;
-    c.height = 1;
-    var g = c.getContext('2d'), lg = g.createLinearGradient(0, 0, 256, 0);
-    lg.addColorStop(0, 'rgb(37,99,235)');
-    lg.addColorStop(.3, 'rgb(6,182,212)');
-    lg.addColorStop(.5, 'rgb(34,197,94)');
-    lg.addColorStop(.7, 'rgb(250,204,21)');
-    lg.addColorStop(.85, 'rgb(249,115,22)');
-    lg.addColorStop(1, 'rgb(239,68,68)');
-    g.fillStyle = lg;
-    g.fillRect(0, 0, 256, 1);
-    return g.getImageData(0, 0, 256, 1).data;
-  }
-  function trailOn() {
-    if (cv) return;
-    cv = document.createElement('canvas');
-    cv.id = 'sbx-trail';
-    cv.setAttribute('aria-hidden', 'true');
-    document.body.appendChild(cv);
-    ctx = cv.getContext('2d');
-    shadow = document.createElement('canvas');
-    sctx = shadow.getContext('2d');
-    var r = Math.round(RADIUS * SCALE);
-    stamp = document.createElement('canvas');
-    stamp.width = stamp.height = r * 2;
-    var g = stamp.getContext('2d'), rg = g.createRadialGradient(r, r, 0, r, r, r);
-    rg.addColorStop(0, 'rgba(0,0,0,1)');
-    rg.addColorStop(1, 'rgba(0,0,0,0)');
-    g.fillStyle = rg;
-    g.fillRect(0, 0, r * 2, r * 2);
-    if (!pal) pal = palette();
-    trailSize();
-  }
-  function trailOff() {
-    if (cv && cv.parentNode) cv.parentNode.removeChild(cv);
-    cv = ctx = shadow = sctx = null;
-    pts = [];
-    last = null;
-  }
-  function trailSize() {
-    if (!cv) return;
-    var w = Math.max(1, Math.round(window.innerWidth * SCALE)), h = Math.max(1, Math.round(window.innerHeight * SCALE));
-    cv.width = shadow.width = w;
-    cv.height = shadow.height = h;
-    trailDraw();
-  }
-  function trailQueue() { if (!raf) raf = requestAnimationFrame(trailDraw); }
-  function trailDraw() {
-    raf = 0;
-    if (!cv) return;
-    var w = shadow.width, h = shadow.height, sx = window.pageXOffset, sy = window.pageYOffset, r = stamp.width / 2;
-    sctx.clearRect(0, 0, w, h);
-    sctx.globalAlpha = ALPHA;
-    for (var i = 0; i < pts.length; i++) {
-      var x = (pts[i][0] - sx) * SCALE, y = (pts[i][1] - sy) * SCALE;
-      if (x < -r || y < -r || x > w + r || y > h + r) continue;
-      sctx.drawImage(stamp, x - r, y - r);
-    }
-    var img = sctx.getImageData(0, 0, w, h), d = img.data;
-    for (var p = 3; p < d.length; p += 4) {
-      var a = d[p];
-      if (!a) continue;
-      d[p - 3] = pal[a * 4];
-      d[p - 2] = pal[a * 4 + 1];
-      d[p - 1] = pal[a * 4 + 2];
-      d[p] = Math.min(210, a * 1.7);
-    }
-    ctx.putImageData(img, 0, 0);
-  }
-  document.addEventListener('mousemove', function (e) {
-    if (mode !== 'bewegen' || !cv) return;
-    var x = e.pageX, y = e.pageY;
-    if (last) {
-      var dx = x - last[0], dy = y - last[1], dist = Math.sqrt(dx * dx + dy * dy);
-      if (dist < STEP) return;
-      if (dist < 240) {
-        var n = Math.ceil(dist / STEP);
-        for (var i = 1; i <= n; i++) pts.push([last[0] + dx * i / n, last[1] + dy * i / n]);
-      } else {
-        pts.push([x, y]);
-      }
-    } else {
-      pts.push([x, y]);
-    }
-    last = [x, y];
-    if (pts.length > MAXPTS) pts.splice(0, pts.length - MAXPTS);
-    trailQueue();
-  }, { passive: true });
-  document.addEventListener('mouseout', function (e) { if (!e.relatedTarget) last = null; });
-  window.addEventListener('scroll', function () { last = null; if (cv) trailQueue(); }, { passive: true });
-  window.addEventListener('resize', function () { if (cv) trailSize(); });
-
-  // Umschalter unten rechts
+  // Umschalter unten rechts: gleitende Markierung, Beschriftung nur beim aktiven Modus, Tooltips fuer die anderen
   var dock = document.createElement('div');
   dock.id = 'sbx-dock';
+  dock.className = 'is-static';
   var pill = document.createElement('div');
   pill.className = 'sbx-pill';
   pill.setAttribute('role', 'group');
   pill.setAttribute('aria-label', 'Heatmap-Ansicht mit Beispieldaten');
+  var ind = document.createElement('span');
+  ind.className = 'sbx-ind';
+  pill.appendChild(ind);
   var btns = Object.keys(LABELS).map(function (m) {
     var b = document.createElement('button');
     b.type = 'button';
@@ -1030,9 +969,8 @@ Webflow.push(function() {
     b.setAttribute('data-mode', m);
     b.setAttribute('aria-pressed', String(m === mode));
     b.setAttribute('aria-label', LABELS[m]);
-    b.title = LABELS[m];
     b.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
-      ICONS[m] + '</svg><span class="sbx-lbl">' + LABELS[m] + '</span>';
+      ICONS[m] + '</svg><span class="sbx-lbl">' + LABELS[m] + '</span><span class="sbx-tip" aria-hidden="true">' + LABELS[m] + '</span>';
     b.addEventListener('click', function () { setMode(m); });
     pill.appendChild(b);
     return b;
@@ -1040,17 +978,49 @@ Webflow.push(function() {
   dock.appendChild(pill);
   document.body.appendChild(dock);
 
+  var SEG = 44, GAP = 2, PAD = 4, LGAP = 7, lw = {};
+  // Zielposition der Markierung aus den gemessenen Breiten berechnen, damit sie parallel zur Beschriftung gleitet
+  function place() {
+    var x = PAD, tx = 0, tw = SEG;
+    btns.forEach(function (b) {
+      var m = b.getAttribute('data-mode'), w = SEG + (m === mode ? LGAP + lw[m] : 0);
+      if (m === mode) { tx = x; tw = w; }
+      x += w + GAP;
+    });
+    ind.style.transform = 'translateX(' + tx + 'px)';
+    ind.style.width = tw + 'px';
+  }
+  function settle() {
+    dock.className = 'is-static';
+    btns.forEach(function (b) {
+      var l = b.querySelector('.sbx-lbl'), r = document.createRange();
+      r.selectNodeContents(l);
+      var w = Math.ceil(r.getBoundingClientRect().width);
+      lw[b.getAttribute('data-mode')] = w;
+      l.style.setProperty('--w', w + 'px');
+    });
+    var cs = getComputedStyle(pill), idle = btns.filter(function (b) { return b.getAttribute('aria-pressed') !== 'true'; })[0];
+    GAP = parseFloat(cs.columnGap) || 0;
+    PAD = parseFloat(cs.paddingLeft) || 0;
+    if (idle) SEG = idle.offsetWidth;
+    place();
+    void dock.offsetWidth;
+    requestAnimationFrame(function () { requestAnimationFrame(function () { dock.className = ''; }); });
+  }
+  settle();
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(settle);
+
   function setMode(m) {
+    if (m === mode) return;
     mode = m;
     btns.forEach(function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-mode') === m)); });
-    trailOff();
-    if (m === 'bewegen') trailOn();
-    render();
+    place();
+    render(true);
   }
 
   // Bei Layout-Aenderungen (Fenstergroesse, Schriften, Scroll-Animationen) neu ausrichten
   var rt;
-  function relayout() { clearTimeout(rt); rt = setTimeout(function () { if (mode !== 'aus') render(); }, 150); }
+  function relayout() { clearTimeout(rt); rt = setTimeout(function () { if (mode !== 'aus') render(false); }, 150); }
   if (window.ResizeObserver) new ResizeObserver(relayout).observe(W);
   else window.addEventListener('resize', relayout);
 })();
