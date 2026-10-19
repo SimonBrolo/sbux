@@ -3843,6 +3843,21 @@ html { scroll-padding-top: 6rem; }
 .section-nav::before { -webkit-backdrop-filter: blur(1.5px); backdrop-filter: blur(1.5px); -webkit-mask-image: linear-gradient(#000 0%, #000 55%, transparent 100%); mask-image: linear-gradient(#000 0%, #000 55%, transparent 100%); }
 .section-nav::after { -webkit-backdrop-filter: blur(5px); backdrop-filter: blur(5px); -webkit-mask-image: linear-gradient(#000 0%, #000 30%, transparent 72%); mask-image: linear-gradient(#000 0%, #000 30%, transparent 72%); }
 .nav-container::before { -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px); -webkit-mask-image: linear-gradient(#000 0%, transparent 48%); mask-image: linear-gradient(#000 0%, transparent 48%); }
-/* Heller Schleier erst nach dem Scrollen, damit der Einstieg oben unveraendert bleibt */
-.nav-container::after { content: ""; display: block; position: absolute; left: 0; right: 0; top: 0; height: 100%; pointer-events: none; z-index: -1; background: linear-gradient(rgba(255, 255, 255, .75), rgba(255, 255, 255, 0)); opacity: 0; transition: opacity .35s ease; }
+/* Schleier erst nach dem Scrollen, damit der Einstieg oben unveraendert bleibt; Farbe folgt dem Untergrund */
+@property --sbx-veil { syntax: '<color>'; inherits: true; initial-value: rgba(255, 255, 255, .75); }
+.section-nav { --sbx-veil: rgba(255, 255, 255, .75); }
+.nav-container::after { content: ""; display: block; position: absolute; left: 0; right: 0; top: 0; height: 100%; pointer-events: none; z-index: -1; background: linear-gradient(var(--sbx-veil), transparent); opacity: 0; transition: opacity .35s ease, --sbx-veil .35s ease; }
 .section-nav.sbx-scrolled .nav-container::after { opacity: 1; }
+.section-nav .logo-image { transition: color .35s ease, opacity .3s cubic-bezier(.165, .84, .44, 1), transform .3s cubic-bezier(.165, .84, .44, 1); }
+.section-nav .button.is-nav { transition: transform .25s cubic-bezier(.165, .84, .44, 1), opacity .25s cubic-bezier(.165, .84, .44, 1), background-color .35s ease, color .35s ease; }
+/* Dark Mode: nur der Einstieg ist hell, darunter helle Schrift und dunkler Schleier */
+@media (prefers-color-scheme: dark) {
+  .section-nav.sbx-dark-under { --sbx-veil: rgba(10, 10, 10, .8); }
+  .section-nav.sbx-dark-under .logo-image { color: #fff; }
+  .section-nav.sbx-dark-under .button.is-nav { background-color: #fff; color: #0a0a0a; }
+  .section-nav.sbx-dark-under .menu-icon-line-top, .section-nav.sbx-dark-under .menu-icon-line-middle, .section-nav.sbx-dark-under .menu-icon-line-bottom { background-color: #fff; }
+  .section-header h1, .section-header p { color: #000; }
+}
+@media (prefers-color-scheme: dark) and (min-width: 992px) {
+  .section-nav.sbx-dark-under .navigation-link { color: #fff; }
+}

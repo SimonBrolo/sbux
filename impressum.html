@@ -313,16 +313,21 @@ Webflow.push(function() {
   });
 </script>
 <script>
-/* Navigation: heller Schleier hinter der Unschaerfe, sobald gescrollt ist. Kontakt-Button: weich zum Kontakt scrollen */
+/* Navigation: Schleier hinter der Unschaerfe, sobald gescrollt ist; im Dark Mode passt sich die Leiste dem Untergrund an. Kontakt-Button: weich zum Kontakt scrollen */
 (function () {
   var nav = document.querySelector('.section-nav');
   if (!nav) return;
-  var on = null;
+  var hero = document.querySelector('.section-header'), dark = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null, st = {};
+  function set(cls, on) { if (st[cls] !== on) { st[cls] = on; nav.classList.toggle(cls, on); } }
   function check() {
-    var s = (window.pageYOffset || document.documentElement.scrollTop) > 8;
-    if (s !== on) { on = s; nav.classList.toggle('sbx-scrolled', s); }
+    set('sbx-scrolled', (window.pageYOffset || document.documentElement.scrollTop) > 8);
+    // Im Dark Mode ist nur der Einstieg hell; sobald die Leiste darunter liegt, braucht sie helle Schrift und einen dunklen Schleier
+    var mid = nav.getBoundingClientRect().top + nav.offsetHeight / 2;
+    set('sbx-dark-under', !!(dark && dark.matches) && (!hero || hero.getBoundingClientRect().bottom < mid));
   }
   window.addEventListener('scroll', check, { passive: true });
+  window.addEventListener('resize', check);
+  if (dark) { if (dark.addEventListener) dark.addEventListener('change', check); else if (dark.addListener) dark.addListener(check); }
   check();
   var btn = nav.querySelector('.is-nav'), target = document.getElementById('contact');
   if (btn && target) btn.addEventListener('click', function (e) {
