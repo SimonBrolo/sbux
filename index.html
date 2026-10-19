@@ -118,8 +118,7 @@
 #sbx-hm .sbx-lab { z-index: 31; display: flex; align-items: center; gap: 6px; white-space: nowrap; padding: 5px 12px; border-radius: 999px; background: #0a0a0a; color: #fff; font: 500 14px/20px Inter, Arial, sans-serif; letter-spacing: 0; box-shadow: 0 2px 10px rgba(0,0,0,.25); }
 #sbx-hm .sbx-lab b { font-weight: 600; }
 #sbx-hm .sbx-lab.is-fold { background: #fff; color: #0a0a0a; border: 1px solid #0a0a0a; }
-#sbx-hm .sbx-tr { width: 88px; height: 88px; margin: -44px 0 0 -44px; border-radius: 50%; z-index: 33; background: radial-gradient(closest-side, rgba(239,68,68,.4), rgba(250,204,21,.3) 38%, rgba(34,197,94,.18) 62%, rgba(37,99,235,.08) 82%, rgba(37,99,235,0)); animation: sbx-fade 8s linear forwards; }
-@keyframes sbx-fade { to { opacity: .3; } }
+#sbx-trail { position: fixed; left: 0; top: 0; width: 100vw; height: 100vh; z-index: 9; pointer-events: none; }
 #sbx-dock { position: fixed; right: 24px; bottom: 24px; z-index: 10000; display: flex; flex-direction: column; align-items: flex-end; gap: 8px; font-family: Inter, Arial, sans-serif; }
 #sbx-dock .sbx-pill { display: flex; align-items: center; gap: 2px; padding: 4px; border-radius: 999px; background: #0a0a0a; color: #fff; box-shadow: 0 8px 28px rgba(0,0,0,.3); }
 #sbx-dock .sbx-seg { min-width: 44px; height: 44px; box-sizing: border-box; display: inline-flex; align-items: center; justify-content: center; gap: 7px; margin: 0; padding: 0 13px; border: 0; border-radius: 999px; background: transparent; color: #fff; font: 500 14px/20px Inter, Arial, sans-serif; letter-spacing: 0; text-transform: none; white-space: nowrap; cursor: pointer; transition: background-color .2s, color .2s; }
@@ -130,7 +129,7 @@
 #sbx-dock .sbx-seg svg { flex: none; }
 @media (max-width: 640px) { #sbx-dock { right: 12px; bottom: 12px; } }
 @media (prefers-color-scheme: dark) { #sbx-hm .sbx-band { mix-blend-mode: normal; } }
-@media print { #sbx-hm, #sbx-dock { display: none; } }
+@media print { #sbx-hm, #sbx-trail, #sbx-dock { display: none; } }
 </style>
 </head>
 <body>
@@ -356,7 +355,7 @@
               <div class="padding-bottom padding-medium">
                 <h1 class="is-invert">Senior UX&nbsp;Consultant<br>für dein Team</h1>
               </div>
-              <p class="text-size-large is-invert">Ich bin Simon Broich, <span class="text-weight-medium">UX&nbsp;Professional&nbsp;(CPUX)</span> aus Köln. Du buchst mich für Nutzerforschung, Konzeption und UI-Design, projektweise oder über mehrere Monate.</p>
+              <p class="text-size-large is-invert">Ich bin Simon Broich, <span class="text-weight-bold">UX&nbsp;Professional&nbsp;(CPUX)</span> aus Köln. Du buchst mich für Nutzerforschung, Konzeption und UI-Design, projektweise oder über mehrere Monate.</p>
               <a href="mailto:mail@sbux.pro?subject=Projektanfrage" class="button is-footer w-button">Verfügbarkeit anfragen →</a>
             </div>
           </div>
@@ -444,12 +443,12 @@
                 <p class="text-size-large margin-0">Eine feste Stelle zu besetzen dauert Monate. Mich buchst du für ein Projekt oder einen festen Zeitraum. Ich arbeite eigenverantwortlich, stimme mich eng mit deinem Team ab und liefere ab der ersten Woche Ergebnisse.<br><br></p>
               </div>
               <div id="w-node-_070bf091-02e1-222f-3e11-a889150ce5b5-be622079" class="content-wrapper">
-                <p><span class="text-weight-medium">CPUX-zertifiziert</span><br>Geprüftes Fachwissen in Usability und User Experience nach dem Standard des UXQB.</p>
-                <p><span class="text-weight-medium">Research und Design aus einer Hand</span><br>Ich führe Nutzertests und Fokusgruppen selbst durch und gestalte auf Basis der Ergebnisse.</p>
-                <p><span class="text-weight-medium">Schnell eingearbeitet</span><br>Ich kenne komplexe B2B-Prozesse aus Großhandel, Agrarhandel und Verbundgruppen.</p>
-                <p><span class="text-weight-medium">Flexibel buchbar</span><br>Für ein einzelnes Projekt oder als feste Kapazität über mehrere Monate, ohne langfristige Bindung.</p>
-                <p><span class="text-weight-medium">Kein Recruiting</span><br>Kein Stellenprofil, kein Bewerbungsprozess. Ein Gespräch, dann geht es los.</p>
-                <p><span class="text-weight-medium">Klare Kosten</span><br>Abrechnung nach Tagessatz oder als Festpreis pro Projekt. Ohne Overhead.</p>
+                <p><span class="text-weight-bold">CPUX-zertifiziert</span><br>Geprüftes Fachwissen in Usability und User Experience nach dem Standard des UXQB.</p>
+                <p><span class="text-weight-bold">Research und Design aus einer Hand</span><br>Ich führe Nutzertests und Fokusgruppen selbst durch und gestalte auf Basis der Ergebnisse.</p>
+                <p><span class="text-weight-bold">Schnell eingearbeitet</span><br>Ich kenne komplexe B2B-Prozesse aus Großhandel, Agrarhandel und Verbundgruppen.</p>
+                <p><span class="text-weight-bold">Flexibel buchbar</span><br>Für ein einzelnes Projekt oder als feste Kapazität über mehrere Monate, ohne langfristige Bindung.</p>
+                <p><span class="text-weight-bold">Kein Recruiting</span><br>Kein Stellenprofil, kein Bewerbungsprozess. Ein Gespräch, dann geht es los.</p>
+                <p><span class="text-weight-bold">Klare Kosten</span><br>Abrechnung nach Tagessatz oder als Festpreis pro Projekt. Ohne Overhead.</p>
               </div>
             </div>
           </div>
@@ -467,28 +466,28 @@
               <div id="w-node-_5b931a6c-c811-8665-1c3a-692638b3b89b-be622079" class="content-wrapper">
                 <article class="list-item is-first">
                   <div class="padding-bottom padding-small">
-                    <h3>Cordes &amp; Graefe</h3>
+                    <h3 class="text-weight-bold">Cordes &amp; Graefe</h3>
                     <h3 class="text-weight-regular">Fokusgruppen, Nutzertests und Konzeptarbeit für GC&nbsp;ONLINE&nbsp;PLUS</h3>
                   </div>
                   <p class="text-size-medium margin-0">Laufzeit: seit 2024</p>
                 </article>
                 <article class="list-item">
                   <div class="padding-bottom padding-small">
-                    <h3>Unicepta</h3>
+                    <h3 class="text-weight-bold">Unicepta</h3>
                     <h3 class="text-weight-regular">Konzeption und Gestaltung eines digitalen Executive News Briefings</h3>
                   </div>
                   <p class="text-size-medium margin-0">Laufzeit: 2021 bis 2023</p>
                 </article>
                 <article class="list-item">
                   <div class="padding-bottom padding-small">
-                    <h3>Soennecken</h3>
+                    <h3 class="text-weight-bold">Soennecken</h3>
                     <h3 class="text-weight-regular">Teilprojektleitung UX/UI: White-Label-Shopsystem für 800&nbsp;Händler</h3>
                   </div>
                   <p class="text-size-medium margin-0">Laufzeit: 2023 bis 2025</p>
                 </article>
                 <article class="list-item is-last">
                   <div class="padding-bottom padding-small">
-                    <h3>Raiffeisen Networld</h3>
+                    <h3 class="text-weight-bold">Raiffeisen Networld</h3>
                     <h3 class="text-weight-regular">UX/UI-Design und Ausbau einer Handelsplattform für Agrarbetriebe</h3>
                   </div>
                   <p class="text-size-medium margin-0">Laufzeit: 2019 bis 2025</p>
@@ -810,7 +809,7 @@ Webflow.push(function() {
   function anchors() {
     var A = {
       h1: q('.section-header h1'),
-      cpux: q('.section-header p .text-weight-medium'),
+      cpux: q('.section-header p .text-weight-bold, .section-header p .text-weight-medium'),
       heroP: q('.section-header p'),
       heroCta: q('.section-header .button'),
       aboutTitle: tight(q('.section-about .section-title h2')),
@@ -826,7 +825,7 @@ Webflow.push(function() {
     };
     var about = qa('.section-about .layout-12-column > .content-wrapper');
     A.aboutIntro = about[0] ? q('p', about[0]) : null;
-    if (about[1]) qa('p', about[1]).forEach(function (p, i) { A['bp' + (i + 1)] = p; A['bt' + (i + 1)] = q('.text-weight-medium', p); });
+    if (about[1]) qa('p', about[1]).forEach(function (p, i) { A['bp' + (i + 1)] = p; A['bt' + (i + 1)] = q('.text-weight-bold, .text-weight-medium', p); });
     qa('.section-experience .list-item h3:not(.text-weight-regular)').forEach(function (h, i) { A['c' + (i + 1)] = tight(h); });
     qa('.section-experience .list-item h3.text-weight-regular').forEach(function (h, i) { A['d' + (i + 1)] = h; });
     qa('.section-skills .heading-xlarge').forEach(function (h, i) { A['s' + (i + 1)] = tight(h); });
@@ -854,9 +853,9 @@ Webflow.push(function() {
       'px;width:' + size(s[2], B.w).toFixed(1) + 'px;height:' + size(s[3], B.h).toFixed(1) + 'px;background:' + grad(s[4]));
   }
 
-  var mode = 'aus', hm = null, A = null, trail = [], tsPrev = null;
+  var mode = 'aus', hm = null, A = null, tsPrev = null;
   function render() {
-    if (hm) { hm.innerHTML = ''; trail = []; }
+    if (hm) hm.innerHTML = '';
     // Webflow setzt preserve-3d auf den Page-Wrapper, das schaltet mix-blend-mode ab; fuer die Scroll-Baender kurz flach rechnen
     if (tsPrev === null) tsPrev = W.style.transformStyle || '';
     W.style.transformStyle = mode === 'scrollen' ? 'flat' : tsPrev;
@@ -919,6 +918,104 @@ Webflow.push(function() {
     });
   }
 
+  // Im Modus "Bewegen" zeichnet die eigene Maus eine durchgehende Heatmap-Spur
+  // (nur im Browser, nichts wird gespeichert oder gesendet)
+  var SCALE = .5, RADIUS = 34, STEP = 5, ALPHA = .1, MAXPTS = 3000;
+  var cv = null, ctx = null, shadow = null, sctx = null, stamp = null, pal = null, pts = [], last = null, raf = 0;
+  function palette() {
+    var c = document.createElement('canvas');
+    c.width = 256;
+    c.height = 1;
+    var g = c.getContext('2d'), lg = g.createLinearGradient(0, 0, 256, 0);
+    lg.addColorStop(0, 'rgb(37,99,235)');
+    lg.addColorStop(.3, 'rgb(6,182,212)');
+    lg.addColorStop(.5, 'rgb(34,197,94)');
+    lg.addColorStop(.7, 'rgb(250,204,21)');
+    lg.addColorStop(.85, 'rgb(249,115,22)');
+    lg.addColorStop(1, 'rgb(239,68,68)');
+    g.fillStyle = lg;
+    g.fillRect(0, 0, 256, 1);
+    return g.getImageData(0, 0, 256, 1).data;
+  }
+  function trailOn() {
+    if (cv) return;
+    cv = document.createElement('canvas');
+    cv.id = 'sbx-trail';
+    cv.setAttribute('aria-hidden', 'true');
+    document.body.appendChild(cv);
+    ctx = cv.getContext('2d');
+    shadow = document.createElement('canvas');
+    sctx = shadow.getContext('2d');
+    var r = Math.round(RADIUS * SCALE);
+    stamp = document.createElement('canvas');
+    stamp.width = stamp.height = r * 2;
+    var g = stamp.getContext('2d'), rg = g.createRadialGradient(r, r, 0, r, r, r);
+    rg.addColorStop(0, 'rgba(0,0,0,1)');
+    rg.addColorStop(1, 'rgba(0,0,0,0)');
+    g.fillStyle = rg;
+    g.fillRect(0, 0, r * 2, r * 2);
+    if (!pal) pal = palette();
+    trailSize();
+  }
+  function trailOff() {
+    if (cv && cv.parentNode) cv.parentNode.removeChild(cv);
+    cv = ctx = shadow = sctx = null;
+    pts = [];
+    last = null;
+  }
+  function trailSize() {
+    if (!cv) return;
+    var w = Math.max(1, Math.round(window.innerWidth * SCALE)), h = Math.max(1, Math.round(window.innerHeight * SCALE));
+    cv.width = shadow.width = w;
+    cv.height = shadow.height = h;
+    trailDraw();
+  }
+  function trailQueue() { if (!raf) raf = requestAnimationFrame(trailDraw); }
+  function trailDraw() {
+    raf = 0;
+    if (!cv) return;
+    var w = shadow.width, h = shadow.height, sx = window.pageXOffset, sy = window.pageYOffset, r = stamp.width / 2;
+    sctx.clearRect(0, 0, w, h);
+    sctx.globalAlpha = ALPHA;
+    for (var i = 0; i < pts.length; i++) {
+      var x = (pts[i][0] - sx) * SCALE, y = (pts[i][1] - sy) * SCALE;
+      if (x < -r || y < -r || x > w + r || y > h + r) continue;
+      sctx.drawImage(stamp, x - r, y - r);
+    }
+    var img = sctx.getImageData(0, 0, w, h), d = img.data;
+    for (var p = 3; p < d.length; p += 4) {
+      var a = d[p];
+      if (!a) continue;
+      d[p - 3] = pal[a * 4];
+      d[p - 2] = pal[a * 4 + 1];
+      d[p - 1] = pal[a * 4 + 2];
+      d[p] = Math.min(210, a * 1.7);
+    }
+    ctx.putImageData(img, 0, 0);
+  }
+  document.addEventListener('mousemove', function (e) {
+    if (mode !== 'bewegen' || !cv) return;
+    var x = e.pageX, y = e.pageY;
+    if (last) {
+      var dx = x - last[0], dy = y - last[1], dist = Math.sqrt(dx * dx + dy * dy);
+      if (dist < STEP) return;
+      if (dist < 240) {
+        var n = Math.ceil(dist / STEP);
+        for (var i = 1; i <= n; i++) pts.push([last[0] + dx * i / n, last[1] + dy * i / n]);
+      } else {
+        pts.push([x, y]);
+      }
+    } else {
+      pts.push([x, y]);
+    }
+    last = [x, y];
+    if (pts.length > MAXPTS) pts.splice(0, pts.length - MAXPTS);
+    trailQueue();
+  }, { passive: true });
+  document.addEventListener('mouseout', function (e) { if (!e.relatedTarget) last = null; });
+  window.addEventListener('scroll', function () { last = null; if (cv) trailQueue(); }, { passive: true });
+  window.addEventListener('resize', function () { if (cv) trailSize(); });
+
   // Umschalter unten rechts
   var dock = document.createElement('div');
   dock.id = 'sbx-dock';
@@ -946,6 +1043,8 @@ Webflow.push(function() {
   function setMode(m) {
     mode = m;
     btns.forEach(function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-mode') === m)); });
+    trailOff();
+    if (m === 'bewegen') trailOn();
     render();
   }
 
@@ -954,24 +1053,6 @@ Webflow.push(function() {
   function relayout() { clearTimeout(rt); rt = setTimeout(function () { if (mode !== 'aus') render(); }, 150); }
   if (window.ResizeObserver) new ResizeObserver(relayout).observe(W);
   else window.addEventListener('resize', relayout);
-
-  // Im Modus "Bewegen" zeichnet die eigene Maus live eine Spur (nur im Browser, nichts wird gespeichert)
-  var lastT = 0, lx = -99, ly = -99;
-  document.addEventListener('mousemove', function (e) {
-    if (mode !== 'bewegen' || !hm) return;
-    var now = Date.now();
-    if (now - lastT < 30) return;
-    var r = W.getBoundingClientRect(), x = e.clientX - r.left, y = e.clientY - r.top;
-    if (Math.abs(x - lx) + Math.abs(y - ly) < 16) return;
-    lastT = now; lx = x; ly = y;
-    var d = document.createElement('div');
-    d.className = 'sbx-tr';
-    d.style.left = x.toFixed(0) + 'px';
-    d.style.top = y.toFixed(0) + 'px';
-    hm.appendChild(d);
-    trail.push(d);
-    if (trail.length > 140) { var old = trail.shift(); if (old.parentNode) old.parentNode.removeChild(old); }
-  }, { passive: true });
 })();
 </script>
 </body>

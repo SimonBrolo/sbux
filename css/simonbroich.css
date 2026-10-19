@@ -30,6 +30,22 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: Inter;
+  src: url('../fonts/Inter-Bold.woff2') format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: Inter-Display;
+  src: url('../fonts/InterDisplay-Bold.woff2') format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   --white: white;
   --black: black;
@@ -172,7 +188,7 @@ label {
 }
 
 strong {
-  font-weight: 500;
+  font-weight: 700;
 }
 
 blockquote {
@@ -479,6 +495,10 @@ figcaption {
 
 .text-weight-medium {
   font-weight: 500;
+}
+
+.text-weight-bold {
+  font-weight: 700;
 }
 
 .text-color-grey {
