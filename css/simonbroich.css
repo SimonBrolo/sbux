@@ -299,7 +299,7 @@ figcaption {
   text-align: center;
   letter-spacing: 0;
   text-transform: none;
-  border-radius: .375rem;
+  border-radius: 999px;
   align-self: flex-start;
   padding: 1.125rem 2rem;
   font-size: 1rem;
@@ -319,7 +319,7 @@ figcaption {
 
 .button:focus-visible, .button[data-wf-focus-visible] {
   outline-offset: 0rem;
-  border-radius: .4375rem;
+  border-radius: 999px;
   outline: .1875rem solid #0000003d;
 }
 
