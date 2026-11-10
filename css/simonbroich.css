@@ -352,6 +352,33 @@ figcaption {
   color: var(--white);
 }
 
+.hero_cta {
+  grid-column-gap: 1.5rem;
+  grid-row-gap: 1rem;
+  flex-flow: wrap;
+  align-items: center;
+  display: flex;
+}
+
+.cpux-badge {
+  flex: none;
+}
+
+.cpux-badge:hover {
+  opacity: .8;
+  transform: translate(0, -.125rem);
+}
+
+.cpux-badge:focus-visible, .cpux-badge[data-wf-focus-visible] {
+  border-radius: 999px;
+}
+
+.cpux-badge_image {
+  width: auto;
+  height: 3.75rem;
+  display: block;
+}
+
 .collection-item {
   width: 100%;
   padding-left: 0;
@@ -2949,6 +2976,17 @@ figcaption {
 @media screen and (max-width: 479px) {
   h1 {
     font-size: 2.75rem;
+  }
+
+  .hero_cta {
+    grid-template-rows: auto;
+    grid-template-columns: 1fr;
+    grid-auto-columns: 1fr;
+    display: grid;
+  }
+
+  .cpux-badge {
+    justify-self: center;
   }
 
   h2 {
